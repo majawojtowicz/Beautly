@@ -1,0 +1,55 @@
+Dodatek A: Modele Analityczne
+A.1 Diagram Przypadków Użycia (Use Case Diagram)
+
+Cel:
+Przedstawienie interakcji pomiędzy aktorami systemu Beautly a głównymi grupami funkcjonalności (rezerwacje, Self-Care Day, panel salonu, moderacja).
+
+A.2 Aktorzy
+
+Klient – użytkownik rezerwujący usługi i planujący Self-Care Day
+
+Salon / Usługodawca – podmiot zarządzający ofertą, grafikiem i rezerwacjami
+
+Administrator / Moderator – nadzór nad treściami i zgodnością (np. moderacja opinii, obsługa RODO)
+
+A.3 Grupy funkcjonalności i interakcje aktorów
+
+1) Zarządzanie kontem
+
+Klient: rejestracja, logowanie, zarządzanie kontem
+
+Salon: logowanie do panelu salonu, zarządzanie kontem salonu
+
+Administrator: zarządzanie dostępem/stanem kont (np. blokada w przypadku nadużyć)
+
+2) Odkrywanie ofert (katalog, filtry)
+
+Klient: przegląd salonów i usług, filtrowanie (kategoria/cena/lokalizacja), podgląd szczegółów
+
+Administrator: moderacja wpisów (np. zgłoszenia podejrzanych salonów/usług)
+
+3) Rezerwacje (kalendarz i terminy)
+
+Klient: wybór usługi i terminu, rezerwacja, podgląd/anulowanie wizyty
+
+Salon: ustawianie grafiku dostępności, podgląd i obsługa rezerwacji, anulowanie rezerwacji
+
+Administrator: podgląd incydentów rezerwacji (opcjonalnie), rozwiązywanie sporów/zgłoszeń
+
+4) Self-Care Day
+
+Klient: wybór preferencji, generowanie planu dnia, potwierdzenie planu
+
+Salon: pośrednio — udostępnianie dostępności terminów (grafik) używanej do dopasowania
+
+5) Opinie i jakość
+
+Klient: dodawanie opinii po wizycie, dodawanie do ulubionych
+
+Salon: wgląd w opinie
+
+Administrator: moderacja opinii i zgłoszeń nadużyć
+
+6) Zgodność i bezpieczeństwo (RODO)
+
+Administrator: eksport/usunięcie danych użytkownika, rejestr zdarzeń/audyt działań moderacyjnych
