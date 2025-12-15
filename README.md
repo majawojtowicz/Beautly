@@ -258,3 +258,539 @@ Kiedy: Po zakończeniu każdego sprintu.
 
 Kto: Scrum Master lub lider zespołu.
 
+
+Tytuł: Rejestracja konta użytkownika
+Opis:
+ Umożliwia nowym użytkownikom utworzenie konta w systemie Beautly.
+
+
+Historyjka Użytkownika:
+
+
+Jako nowy użytkownik,
+
+
+chcę móc zarejestrować konto w systemie,
+
+
+abym mógł korzystać z funkcji rezerwacji usług i planowania Self-Care Day.
+
+
+Cel Biznesowy:
+ Obniżenie bariery wejścia do systemu oraz realizacja celu szybkiego onboardingu użytkowników.
+
+
+Warunki Wstępne:
+ Użytkownik nie posiada jeszcze konta w systemie Beautly.
+
+
+Warunki Końcowe:
+ Konto użytkownika zostaje utworzone i użytkownik jest zalogowany w systemie.
+
+
+Kryteria Akceptacji:
+
+
+
+WF-AUTH-01: Pomyślna rejestracja użytkownika (Scenariusz Główny)
+
+
+Opis: Użytkownik poprawnie zakłada konto.
+
+
+Kryteria Akceptacji:
+
+
+Given: Nie posiadam konta w systemie Beautly.
+
+
+When: Podaję wymagane dane rejestracyjne (np. adres e-mail oraz hasło) i zatwierdzam formularz.
+
+
+Then: Konto zostaje utworzone w systemie.
+
+
+And: Zostaję automatycznie zalogowany do aplikacji.
+
+
+
+WF-AUTH-02: Rejestracja z użyciem istniejącego adresu e-mail (Scenariusz Alternatywny)
+
+
+Opis: System blokuje próbę rejestracji na istniejący adres e-mail.
+
+
+Kryteria Akceptacji:
+
+
+Given: Podaję adres e-mail, który jest już przypisany do innego konta.
+
+
+When: Próbuję zakończyć proces rejestracji.
+
+
+Then: System wyświetla komunikat o istniejącym koncie.
+
+
+And: System proponuje przejście do logowania lub resetu hasła.
+
+
+
+WF-AUTH-03: Niepoprawne dane rejestracyjne (Scenariusz Wyjątkowy)
+
+
+Opis: System waliduje poprawność danych wejściowych.
+
+
+Kryteria Akceptacji:
+
+
+Given: Wprowadzam niepoprawne lub niekompletne dane rejestracyjne.
+
+
+When: Próbuję zatwierdzić formularz.
+
+
+Then: System wyświetla komunikat walidacyjny.
+
+
+And: Konto nie zostaje utworzone.
+
+
+
+Tytuł: Logowanie użytkownika
+Opis:
+ Umożliwia zarejestrowanym użytkownikom dostęp do systemu Beautly.
+
+
+Historyjka Użytkownika:
+
+
+Jako zarejestrowany użytkownik,
+
+
+chcę móc zalogować się do systemu,
+
+
+abym miał dostęp do swoich rezerwacji i funkcji personalizowanych.
+
+
+Cel Biznesowy:
+ Zapewnienie bezpiecznego dostępu do konta użytkownika oraz utrzymanie ciągłości korzystania z systemu.
+
+
+Warunki Wstępne:
+ Użytkownik posiada aktywne konto w systemie Beautly.
+
+
+Warunki Końcowe:
+ Użytkownik zostaje poprawnie zalogowany do systemu.
+
+
+Kryteria Akceptacji:
+
+
+
+WF-LOGIN-01: Pomyślne logowanie użytkownika (Scenariusz Główny)
+
+
+Opis: Użytkownik loguje się przy użyciu poprawnych danych.
+
+
+Kryteria Akceptacji:
+
+
+Given: Posiadam aktywne konto w systemie Beautly.
+
+
+When: Podaję poprawny adres e-mail i hasło.
+
+
+Then: Zostaję zalogowany do systemu.
+
+
+And: Uzyskuję dostęp do funkcji wymagających autoryzacji.
+
+
+
+WF-LOGIN-02: Logowanie z niepoprawnym hasłem (Scenariusz Alternatywny)
+
+
+Opis: System odrzuca niepoprawne dane logowania.
+
+
+Kryteria Akceptacji:
+
+
+Given: Posiadam konto w systemie Beautly.
+
+
+When: Podaję niepoprawne hasło.
+
+
+Then: System wyświetla komunikat o błędnych danych logowania.
+
+
+And: Użytkownik pozostaje niezalogowany.
+
+
+
+WF-LOGIN-03: Próba dostępu do funkcji bez logowania (Scenariusz Wyjątkowy)
+
+
+Opis: System wymusza autoryzację dla funkcji wymagających konta.
+
+
+Kryteria Akceptacji:
+
+
+Given: Nie jestem zalogowany w systemie.
+
+
+When: Próbuję uzyskać dostęp do funkcji wymagającej konta (np. rezerwacji).
+
+
+Then: System przekierowuje mnie do ekranu logowania lub rejestracji.
+
+
+Tytuł: Rezerwacja usługi beauty/wellness
+Opis:
+ Umożliwia klientom rezerwację wybranej usługi w salonie na konkretny termin.
+
+
+Historyjka Użytkownika:
+
+
+Jako klient,
+
+
+chcę móc zarezerwować wybraną usługę w salonie,
+
+
+abym miał potwierdzony termin wizyty bez konieczności kontaktu telefonicznego.
+
+
+Cel Biznesowy:
+ Uproszczenie procesu umawiania wizyt oraz zwiększenie liczby rezerwacji realizowanych przez platformę Beautly.
+
+
+Warunki Wstępne:
+ Użytkownik jest zalogowany w systemie jako klient.
+
+
+Warunki Końcowe:
+ Rezerwacja zostaje zapisana w systemie i jest widoczna zarówno dla klienta, jak i dla salonu.
+
+
+Kryteria Akceptacji:
+
+
+
+WF-REZ-01: Pomyślna rezerwacja usługi (Scenariusz Główny)
+
+
+Opis: Klient rezerwuje usługę w dostępnym terminie.
+
+
+Kryteria Akceptacji:
+
+
+Given: Jestem zalogowanym klientem i przeglądam ofertę salonu.
+
+
+And: Wybrana usługa posiada dostępne wolne sloty czasowe.
+
+
+When: Wybiorę usługę, termin wizyty i kliknę przycisk „Rezerwuj”.
+
+
+Then: Rezerwacja otrzymuje status „Potwierdzona”.
+
+
+And: Termin zostaje oznaczony jako zajęty w grafiku salonu.
+
+
+And: Rezerwacja jest widoczna w sekcji „Moje wizyty”.
+
+
+
+WF-REZ-02: Rezerwacja zajętego terminu (Scenariusz Alternatywny)
+
+
+Opis: System blokuje rezerwację terminu, który został zajęty przez innego użytkownika.
+
+
+Kryteria Akceptacji:
+
+
+Given: Jestem zalogowanym klientem i wybrałem termin wizyty.
+
+
+And: Wybrany slot czasowy został zajęty w trakcie rezerwacji.
+
+
+When: Próbuję potwierdzić rezerwację.
+
+
+Then: System wyświetla komunikat o braku dostępności terminu.
+
+
+And: System prosi o wybór innego dostępnego slotu.
+
+
+And: Rezerwacja nie zostaje zapisana.
+
+
+
+WF-REZ-03: Rezerwacja przez niezalogowanego użytkownika (Scenariusz Wyjątkowy)
+
+
+Opis: System uniemożliwia dokonanie rezerwacji bez zalogowania.
+
+
+Kryteria Akceptacji:
+
+
+Given: Nie jestem zalogowany w systemie.
+
+
+When: Próbuję zarezerwować usługę w wybranym terminie.
+
+
+Then: System przekierowuje mnie do ekranu logowania lub rejestracji.
+
+
+And: Rezerwacja nie zostaje utworzona.
+
+
+
+Tytuł: Planowanie Self-Care Day
+Opis:
+ Umożliwia klientom zaplanowanie całego dnia zabiegów beauty/wellness poprzez automatyczne dopasowanie usług i dostępnych terminów.
+
+
+Historyjka Użytkownika:
+
+
+Jako klient,
+
+
+chcę móc zaplanować Self-Care Day obejmujący kilka zabiegów,
+
+
+abym nie musiał ręcznie dopasowywać terminów i lokalizacji.
+
+
+Cel Biznesowy:
+ Wyróżnienie platformy Beautly na tle konkurencji oraz zwiększenie zaangażowania i retencji użytkowników.
+
+
+Warunki Wstępne:
+ Użytkownik jest zalogowany w systemie jako klient.
+
+
+Warunki Końcowe:
+ System generuje plan dnia obejmujący zestaw zabiegów z przypisanymi terminami, gotowy do potwierdzenia.
+
+
+Kryteria Akceptacji:
+
+
+
+WF-SCD-01: Pomyślne wygenerowanie planu dnia (Scenariusz Główny)
+
+
+Opis: Klient otrzymuje kompletny plan Self-Care Day.
+
+
+Kryteria Akceptacji:
+
+
+Given: Jestem zalogowanym klientem.
+
+
+And: Wybrałem co najmniej dwa zabiegi oraz preferowany dzień.
+
+
+When: Kliknę przycisk „Ułóż Self-Care Day”.
+
+
+Then: System generuje plan dnia z kolejnością zabiegów i proponowanymi slotami czasowymi.
+
+
+And: Każdy zabieg posiada przypisany salon i godzinę.
+
+
+
+WF-SCD-02: Brak możliwości ułożenia pełnego planu (Scenariusz Alternatywny)
+
+
+Opis: System informuje o braku możliwości pełnego dopasowania planu.
+
+
+Kryteria Akceptacji:
+
+
+Given: Jestem zalogowanym klientem i wybrałem zestaw zabiegów.
+
+
+And: Dostępne terminy nie pozwalają na ułożenie kompletnego planu.
+
+
+When: Próbuję wygenerować Self-Care Day.
+
+
+Then: System informuje o problemie z dopasowaniem terminów.
+
+
+And: System proponuje alternatywy (inny dzień lub zmniejszenie liczby zabiegów).
+
+
+
+WF-SCD-03: Próba planowania przez niezalogowanego użytkownika (Scenariusz Wyjątkowy)
+
+
+Opis: System wymaga zalogowania przed użyciem funkcji Self-Care Day.
+
+
+Kryteria Akceptacji:
+
+
+Given: Nie jestem zalogowany w systemie.
+
+
+When: Próbuję skorzystać z funkcji Self-Care Day.
+
+
+Then: System przekierowuje mnie do logowania lub rejestracji.
+
+
+And: Plan dnia nie zostaje wygenerowany.
+
+
+Tytuł: Zarządzanie grafikiem i rezerwacjami w Panelu Salonu
+Opis:
+ Umożliwia salonowi zarządzanie dostępnością usług, grafikiem pracy oraz rezerwacjami klientów.
+
+
+Historyjka Użytkownika:
+
+
+Jako przedstawiciel salonu,
+
+
+chcę móc zarządzać grafikiem i rezerwacjami,
+
+
+abym miał porządek w terminach i mógł efektywnie obsługiwać klientów.
+
+
+Cel Biznesowy:
+ Usprawnienie obsługi rezerwacji po stronie salonu oraz ograniczenie pustych okienek w grafiku.
+
+
+Warunki Wstępne:
+ Użytkownik jest zalogowany w systemie jako salon / usługodawca.
+
+
+Warunki Końcowe:
+ Grafik i rezerwacje salonu są aktualne i widoczne dla klientów w systemie Beautly.
+
+
+Kryteria Akceptacji:
+
+
+
+WF-SALON-01: Pomyślne ustawienie grafiku dostępności (Scenariusz Główny)
+
+
+Opis: Salon ustawia dostępne dni i godziny pracy.
+
+
+Kryteria Akceptacji:
+
+
+Given: Jestem zalogowanym użytkownikiem z rolą salonu.
+
+
+And: Posiadam zdefiniowane usługi w systemie.
+
+
+When: Ustawiam godziny pracy oraz dostępność terminów w panelu salonu.
+
+
+Then: Grafik zostaje zapisany w systemie.
+
+
+And: Dostępne sloty czasowe są widoczne dla klientów.
+
+
+
+WF-SALON-02: Przegląd rezerwacji klientów (Scenariusz Główny)
+
+
+Opis: Salon przegląda listę nadchodzących rezerwacji.
+
+
+Kryteria Akceptacji:
+
+
+Given: Jestem zalogowanym użytkownikiem z rolą salonu.
+
+
+When: Otwieram sekcję „Rezerwacje” w panelu salonu.
+
+
+Then: Widzę listę wszystkich nadchodzących wizyt wraz z datą, godziną i usługą.
+
+
+And: Rezerwacje są uporządkowane chronologicznie.
+
+
+
+WF-SALON-03: Anulowanie rezerwacji przez salon (Scenariusz Alternatywny)
+
+
+Opis: Salon może anulować rezerwację klienta.
+
+
+Kryteria Akceptacji:
+
+
+Given: Jestem zalogowanym użytkownikiem z rolą salonu.
+
+
+And: Istnieje aktywna rezerwacja klienta.
+
+
+When: Anuluję rezerwację w panelu salonu.
+
+
+Then: Rezerwacja zmienia status na „Anulowana”.
+
+
+And: Klient otrzymuje informację o anulowaniu rezerwacji.
+
+
+
+WF-SALON-04: Konflikt terminów w grafiku (Scenariusz Wyjątkowy)
+
+
+Opis: System blokuje możliwość ustawienia konfliktujących terminów.
+
+
+Kryteria Akceptacji:
+
+
+Given: Jestem zalogowanym użytkownikiem z rolą salonu.
+
+
+When: Próbuję ustawić grafik powodujący nakładanie się terminów.
+
+
+Then: System wyświetla komunikat o konflikcie terminów.
+
+
+And: Zmiany w grafiku nie zostają zapisane.
+
+
