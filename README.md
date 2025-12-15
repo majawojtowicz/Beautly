@@ -88,3 +88,34 @@ Klient – użytkownik rezerwujący usługi
 
 1.4 Przegląd dokumentu
 Rozdział 2 opisuje system ogólnie (funkcje, role, ograniczenia, założenia). Rozdział 3 zawiera wymagania funkcjonalne w formacie user story + Given/When/Then. Rozdział 4 opisuje wymagania jakościowe (mierzalne) oraz kompromisy. Rozdział 5 – analiza porównawcza rynku. Dodatki: diagram przypadków użycia, persony, lista otwartych kwestii.
+
+2. Opis ogólny
+2.1 Główne funkcje produktu
+Konta i profile (Klient, Salon, Administrator)
+
+
+Katalog salonów i usług (wyszukiwanie, filtry)
+
+
+Rezerwacje i kalendarz (dla klientów + salonów)
+
+
+Self-Care Day (planowanie pakietu zabiegów z różnych salonów)
+
+
+Opinie, ulubione, rekomendacje
+
+
+Panel salonu (usługi, grafik, rezerwacje)
+
+
+2.2 Klasy użytkowników
+A) Klient (osoba rezerwująca)
+cele: szybka rezerwacja, wygodne planowanie dnia, minimalna liczba kroków, brak „ręcznego dopasowywania” terminów
+
+
+B) Salon / usługodawca
+cele: zarządzanie grafikiem, usługami i rezerwacjami, minimalizacja pustych okienek, porządek w kalendarzu
+C) Administrator / Moderator
+cele: utrzymanie jakości i bezpieczeństwa platformy, moderacja treści (opinie, salony), obsługa zgłoszeń nadużyć oraz realizacja obowiązków RODO (eksport i usuwanie danych), zapewnienie zgodności działania systemu z regulaminem i przepisami prawa.
+
