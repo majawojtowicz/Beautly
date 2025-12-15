@@ -193,4 +193,68 @@ Ogranicza liczbę zaawansowanych komponentów infrastrukturalnych w wersji MVP.
 
 Skłania do stosowania sprawdzonych rozwiązań i frameworków zamiast eksperymentalnych technologii.
 
+2.4 Założenia projektowe
+Założenie techniczne
+Założenie: Zakładamy, że algorytm dopasowywania terminów w module Self-Care Day będzie w stanie wygenerować poprawny plan dnia dla użytkownika w czasie krótszym niż 5 sekund przy typowym obciążeniu systemu.
+
+
+Ryzyko: Jeśli algorytm okaże się zbyt wolny lub nieefektywny, użytkownicy będą rezygnować z korzystania z funkcji Self-Care Day, co bezpośrednio wpłynie na kluczowy wyróżnik produktu i obniży retencję użytkowników.
+
+
+Plan walidacji:
+
+
+Co: Testy wydajności modułu Self-Care Day.
+
+
+Jak: Uruchomienie algorytmu na zestawie danych testowych (wiele salonów, usług i slotów czasowych) oraz pomiar czasu generowania planu.
+
+
+Kiedy: W drugim sprincie, przed pełną integracją modułu Self-Care Day z interfejsem użytkownika.
+
+
+Kto: Backend developer.
+Założenie dotyczące użytkownika lub biznesu
+Założenie: Zakładamy, że użytkownicy końcowi będą skłonni zaplanować kompletny Self-Care Day w czasie nie dłuższym niż 2 minuty i przy użyciu maksymalnie kilku prostych kroków.
+
+
+Ryzyko: Jeśli proces planowania okaże się zbyt złożony lub czasochłonny, użytkownicy będą porzucać funkcję Self-Care Day, co spowoduje niskie wykorzystanie kluczowej funkcjonalności i obniżenie wskaźników retencji.
+
+
+Plan walidacji:
+
+
+Co: Testy użyteczności procesu planowania Self-Care Day.
+
+
+Jak: Przygotowanie klikalnego prototypu (np. w Figma) i przeprowadzenie testów z udziałem 5–7 użytkowników, mierząc czas wykonania zadania i liczbę błędów.
+
+
+Kiedy: Przed rozpoczęciem implementacji finalnego interfejsu użytkownika dla modułu Self-Care Day.
+
+
+Kto: Product Owner lub UX Designer.
+
+
+
+Założenie organizacyjne
+Założenie: Zakładamy, że zespół projektowy będzie w stanie regularnie dostarczać działające przyrosty funkcjonalności w iteracjach sprintowych trwających 2–3 tygodnie.
+
+
+Ryzyko: Jeśli tempo pracy zespołu okaże się niestabilne, część zaplanowanych funkcji MVP może nie zostać dostarczona na czas, co ograniczy możliwość pełnej walidacji produktu.
+
+
+Plan walidacji:
+
+
+Co: Monitorowanie realizacji sprintów i wskaźnika ukończonych zadań.
+
+
+Jak: Analiza tablicy zadań (np. Trello/Jira) oraz retrospektywy sprintów.
+
+
+Kiedy: Po zakończeniu każdego sprintu.
+
+
+Kto: Scrum Master lub lider zespołu.
 
