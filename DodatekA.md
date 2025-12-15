@@ -9,9 +9,6 @@ Przedstawienie interakcji pomiędzy aktorami systemu **Beautly** a głównymi gr
 - panel salonu,
 - moderacja i zgodność.
 
-> **Uwaga:** W dokumencie Markdown można osadzić diagram jako obraz (np. `use-case.png`) lub wygenerować go w narzędziu typu PlantUML/Mermaid.  
-> Jeśli chcesz, mogę przygotować gotowy diagram w Mermaid/PlantUML na podstawie poniższych przypadków użycia.
-
 ---
 
 ### A.2 Aktorzy
