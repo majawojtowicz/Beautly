@@ -360,7 +360,7 @@ Jako **przedstawiciel salonu**, chcę zarządzać grafikiem i rezerwacjami, abym
 | Self-Care Day (pełna wersja) | 21 | 13 | 13 | 13 | 1.31 |
 
 **Uwaga do definicji SCD**
-- **Self-Care Day (MVP Lite):** generowanie planu + propozycje slotów (bez: dojazdu, pełnej optymalizacji wielu wariantów, rezerwacji wszystkiego „naraz”).  
+- **Self-Care Day (MVP):** generowanie planu + propozycje slotów (bez: dojazdu, pełnej optymalizacji wielu wariantów, rezerwacji wszystkiego „naraz”).  
 - **Self-Care Day (pełna wersja):** rozbudowany algorytm, więcej ograniczeń i wariantów, wyższe ryzyko techniczne.
 
 **Wybór zakresu MVP (na podstawie priorytetu)**
@@ -497,7 +497,7 @@ Jako **przedstawiciel salonu**, chcę zarządzać grafikiem i rezerwacjami, abym
 
 **Wpływ analizy na SRS**
 - wybór użyteczności, niezawodności i wydajności jako kluczowych NFR,  
-- wdrożenie SCD jako wyróżnika (MVP Lite),  
+- wdrożenie SCD jako MVP,  
 - ograniczenie MVP do funkcji o najwyższej wartości (rezerwacje + panel salonu).
 
 ---
