@@ -985,4 +985,77 @@ System generuje plan dnia i zwraca propozycje zabiegów
 Miara reakcji
 Czas generowania planu jest krótszy niż 5,0 sekundy dla 95% żądań w wersji MVP
 
+4.3 Analiza kompromisów architektonicznych 
+A) Scenariusz: Użyteczność (Onboarding)
+Cel: Rejestracja ≤ 30 sekund i ≤ 3 kroki dla 95% przypadków + dropout < 20%.
+Możliwe rozwiązanie architektoniczne:
+ Wprowadzenie uproszczonego procesu rejestracji (minimalne dane na start) oraz realizacja „profilu rozszerzonego” dopiero po pierwszym użyciu (progressive profiling). Dodatkowo zastosowanie mechanizmów autouzupełniania i walidacji po stronie klienta (frontend).
+Kompromis:
+Pozytywny:
+
+
+Znacząco poprawiamy użyteczność i skracamy onboarding, co zwiększa liczbę aktywacji kont.
+
+
+Negatywny:
+
+
+Pogarszamy bezpieczeństwo, jeśli uprościmy zasady haseł lub ograniczymy weryfikację (np. brak potwierdzenia e-mail/telefonu na starcie).
+
+
+Zwiększamy złożoność logiki biznesowej, bo dane użytkownika są kompletowane etapami (większe ryzyko „pustych profili”).
+
+
+Może pogorszyć jakość danych, co utrudnia personalizację i analizę zachowań.
+
+
+
+B) Scenariusz: Niezawodność (Rezerwacje)
+Cel: 0 przypadków podwójnej rezerwacji w skali miesiąca + 100% spójności transakcji.
+Możliwe rozwiązanie architektoniczne:
+ Zastosowanie transakcyjności po stronie bazy danych (ACID) oraz mechanizmu blokowania slotu podczas rezerwacji (np. transakcje + unikalne ograniczenie na slot, ewentualnie blokady pesymistyczne/optymistyczne). Dodatkowo idempotentne API (ponowne wysłanie tego samego żądania nie tworzy dubla).
+Kompromis:
+Pozytywny:
+
+
+Maksymalizujemy niezawodność rezerwacji i spójność danych, co buduje zaufanie klientów i salonów.
+
+
+Negatywny:
+
+
+Pogarszamy wydajność przy dużym obciążeniu, bo blokady/transakcje zwiększają czas obsługi i mogą tworzyć „wąskie gardła”.
+
+
+Zwiększamy złożoność implementacji (obsługa retry, timeoutów, konfliktów) i tym samym pogarszamy modyfikowalność.
+
+
+Potencjalnie obniżamy skalowalność (przy dużej liczbie operacji rezerwacyjnych wymagających ścisłej spójności).
+
+
+
+C) Scenariusz: Wydajność (Self-Care Day)
+Cel: czas generowania planu Self-Care Day < 5.0 s dla 95% żądań (MVP).
+Możliwe rozwiązanie architektoniczne:
+ Wprowadzenie cache’owania wyników częściowych (np. dostępność slotów dla popularnych usług/salonów), indeksów w bazie danych oraz ograniczenie przestrzeni poszukiwań w algorytmie (heurystyki w MVP: max liczba wariantów, max liczba salonów branych pod uwagę). Opcjonalnie asynchroniczne generowanie planu (kolejka zadań), jeśli obliczenia są ciężkie.
+Kompromis:
+Pozytywny:
+
+
+Znacząco poprawiamy wydajność generowania planów i komfort użytkownika przy korzystaniu z kluczowej funkcji wyróżniającej produkt.
+
+
+Negatywny:
+
+
+Pogarszamy modyfikowalność, bo algorytm i cache wprowadzają dodatkową złożoność (np. unieważnianie cache).
+
+
+Zwiększamy koszt operacyjny, jeśli dojdą dodatkowe komponenty (cache, kolejka zadań, worker).
+
+
+Wprowadzamy ryzyko nieaktualnych danych, jeśli cache dostępności nie będzie poprawnie odświeżany.
+
+
+Możemy pogorszyć użyteczność, jeśli zastosujemy asynchroniczne generowanie (użytkownik czeka na wynik lub musi odświeżać).
 
