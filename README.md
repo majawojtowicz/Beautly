@@ -794,3 +794,110 @@ Then: System wyświetla komunikat o konflikcie terminów.
 And: Zmiany w grafiku nie zostają zapisane.
 
 
+3.1 Priorytetyzacja wymagań dla MVP
+Priorytet = (Korzyść + Kara) / (Koszt + Ryzyko)
+Tabela priorytetyzacji funkcji
+Funkcja (kandydat do MVP)
+Korzyść
+Kara
+Koszt
+Ryzyko
+Priorytet
+Rejestracja konta
+13
+21
+5
+3
+4.25
+Logowanie
+8
+13
+3
+2
+4.20
+Rezerwacja usługi
+21
+21
+8
+8
+2.63
+Self-Care Day (MVP)
+21
+21
+8
+8
+2.63
+Przegląd salonów i filtrowanie
+13
+21
+8
+5
+2.62
+Panel salonu: grafik + rezerwacje
+21
+21
+13
+8
+2.00
+Powiadomienia o rezerwacji (np. e-mail/push)
+13
+13
+8
+5
+2.00
+Ulubione + opinie
+8
+8
+5
+5
+1.60
+Self-Care Day (pełna wersja)
+21
+13
+13
+13
+1.31
+
+Uwaga do definicji SCD:
+Self-Care Day (MVP Lite) = generowanie planu + propozycje slotów (bez zaawansowanych rzeczy typu: czas dojazdu, pełna optymalizacja wielu wariantów, rezerwacje wszystkiego naraz).
+
+
+Self-Care Day (pełna wersja) = rozbudowany algorytm, więcej ograniczeń i wariantów, większe ryzyko techniczne.
+Wybór zakresu MVP na podstawie wyników
+MVP powinno zawierać funkcje o najwyższym priorytecie (najlepszy stosunek wartości do kosztu i ryzyka):
+Rejestracja konta (4.25)
+
+
+Logowanie (4.20)
+
+
+Przegląd salonów i filtrowanie (2.62)
+
+
+Rezerwacja usługi (2.63)
+
+
+Panel salonu: grafik + rezerwacje (2.00)
+
+
+Powiadomienia o rezerwacji (2.00)
+
+
+Self-Care Day (MVP) (2.63) — jako wyróżnik produktu, ale w ograniczonym zakresie
+
+
+Poza MVP (kolejna iteracja):
+Ulubione + opinie (1.60) — wartościowe, ale nieblokujące podstawowego działania platformy
+
+
+Self-Care Day (pełna wersja) (1.31) — wysoka wartość, ale relatywnie najwyższy koszt i ryzyko
+
+
+Krótkie uzasadnienie decyzji
+Bez rejestracji i logowania nie da się realizować kluczowych procesów (rezerwacje, historia wizyt), więc kara za pominięcie jest bardzo wysoka.
+
+
+Rezerwacja + panel salonu (grafik) to rdzeń biznesowy — bez tego produkt nie spełnia podstawowej obietnicy.
+
+
+Self-Care Day jest wyróżnikiem Beautly, ale pełna wersja ma wysoki koszt/ryzyko, dlatego w MVP najlepiej dowieźć wersję MVP, a dopiero potem rozszerzać.
