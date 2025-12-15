@@ -901,3 +901,88 @@ Rezerwacja + panel salonu (grafik) to rdzeń biznesowy — bez tego produkt nie 
 
 
 Self-Care Day jest wyróżnikiem Beautly, ale pełna wersja ma wysoki koszt/ryzyko, dlatego w MVP najlepiej dowieźć wersję MVP, a dopiero potem rozszerzać.
+
+4. Atrybuty jakościowe (NFR)
+.
+4.1 Priorytety atrybutów jakościowych
+Użyteczność (Usability)
+ Użyteczność jest kluczowym atrybutem jakościowym systemu Beautly, ponieważ bezpośrednio wpływa na pozyskanie i aktywację użytkowników. Platforma zakłada szybki onboarding, minimalną liczbę kroków podczas rejestracji oraz intuicyjne procesy rezerwacji i planowania Self-Care Day. Niska użyteczność skutkowałaby wysokim współczynnikiem porzuceń oraz niespełnieniem kluczowych wskaźników KPI.
+
+
+Niezawodność (Reliability)
+ Beautly obsługuje krytyczne procesy rezerwacyjne, w których błędy (np. podwójne rezerwacje, utrata terminów) prowadzą do utraty zaufania użytkowników i salonów. System musi zapewniać spójność danych oraz poprawne działanie nawet w sytuacjach częściowych awarii.
+
+
+Wydajność (Performance)
+ Wydajność jest szczególnie istotna w kontekście wyszukiwania salonów oraz generowania planów w module Self-Care Day. Czas odpowiedzi systemu ma bezpośredni wpływ na komfort użytkownika i jego skłonność do dalszego korzystania z platformy.
+
+
+Bezpieczeństwo (Security)
+ System przetwarza dane osobowe oraz informacje o wizytach, co wymaga odpowiednich mechanizmów ochrony przed nieautoryzowanym dostępem i naruszeniami danych. Bezpieczeństwo jest również kluczowe z punktu widzenia zgodności z przepisami prawa, w szczególności RODO.
+
+
+Dostępność (Availability)
+ Użytkownicy oczekują możliwości rezerwowania usług o dowolnej porze dnia, niezależnie od godzin pracy salonów. System powinien charakteryzować się wysoką dostępnością, aby uniknąć sytuacji, w których użytkownik nie może skorzystać z kluczowych funkcji.
+
+
+Skalowalność (Scalability)
+ Wraz ze wzrostem liczby użytkowników, salonów oraz rezerwacji system musi być w stanie obsługiwać większe obciążenie bez pogorszenia jakości działania. Skalowalność umożliwia stopniowy rozwój platformy bez konieczności jej gruntownej przebudowy.
+
+
+Modyfikowalność (Modifiability)
+ Beautly jest projektem rozwijanym iteracyjnie (MVP → kolejne wersje), dlatego architektura systemu powinna umożliwiać łatwe wprowadzanie zmian i dodawanie nowych funkcjonalności, takich jak płatności online czy programy lojalnościowe.
+
+
+
+4.2 Scenariusze jakościowe
+A) Użyteczność (Onboarding)
+Element
+Opis
+Źródło bodźca
+Nowy użytkownik
+Bodziec
+Rozpoczęcie procesu rejestracji konta
+Artefakt
+Moduł rejestracji użytkownika
+Środowisko
+Typowe obciążenie systemu
+Reakcja
+Użytkownik kończy proces rejestracji bez błędów
+Miara reakcji
+Rejestracja trwa ≤ 30 sekund i obejmuje ≤ 3 kroki dla 95% przypadków, a współczynnik porzuceń procesu (dropout) jest mniejszy niż 20%
+
+
+B) Niezawodność (Rezerwacje)
+Element
+Opis
+Źródło bodźca
+Klient
+Bodziec
+Potwierdzenie rezerwacji wybranego slotu czasowego
+Artefakt
+Moduł rezerwacji oraz baza danych
+Środowisko
+Obciążenie systemu wynoszące 500 równoczesnych użytkowników
+Reakcja
+System zapisuje rezerwację w sposób spójny i zapobiega podwójnym rezerwacjom
+Miara reakcji
+0 przypadków podwójnej rezerwacji w skali miesiąca oraz 100% spójności transakcji
+
+
+C) Wydajność (Self-Care Day)
+Element
+Opis
+Źródło bodźca
+Klient
+Bodziec
+Żądanie wygenerowania planu Self-Care Day
+Artefakt
+Moduł Self-Care Day (logika planowania oraz dostępność terminów)
+Środowisko
+Szczytowe obciążenie systemu
+Reakcja
+System generuje plan dnia i zwraca propozycje zabiegów
+Miara reakcji
+Czas generowania planu jest krótszy niż 5,0 sekundy dla 95% żądań w wersji MVP
+
+
