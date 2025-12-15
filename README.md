@@ -119,3 +119,78 @@ cele: zarządzanie grafikiem, usługami i rezerwacjami, minimalizacja pustych ok
 C) Administrator / Moderator
 cele: utrzymanie jakości i bezpieczeństwa platformy, moderacja treści (opinie, salony), obsługa zgłoszeń nadużyć oraz realizacja obowiązków RODO (eksport i usuwanie danych), zapewnienie zgodności działania systemu z regulaminem i przepisami prawa.
 
+2.3 Ograniczenia projektowe
+Ograniczenie technologiczne
+Ograniczenie: System Beautly musi być zrealizowany jako aplikacja webowa z backendem w Python (Django) oraz frontendem w React / React Native.
+
+
+Źródło: Wcześniejsze decyzje projektowe zespołu oraz kompetencje technologiczne członków zespołu.
+
+
+Wpływ na architekturę:
+
+
+Wymusza projektowanie architektury zgodnej z frameworkiem Django (np. MVC/MVT) oraz REST API jako warstwy komunikacyjnej.
+
+
+Narzuca konieczność zaprojektowania czytelnego podziału odpowiedzialności pomiędzy frontendem a backendem oraz integracji z aplikacją mobilną.
+
+
+Ograniczenie biznesowe
+Ograniczenie: Zakres funkcjonalny wersji MVP musi być ograniczony do kluczowych funkcji rezerwacji oraz modułu Self-Care Day, bez obsługi płatności online.
+
+
+Źródło: Ograniczony czas realizacji projektu oraz potrzeba szybkiej walidacji pomysłu produktowego.
+
+
+Wpływ na architekturę:
+
+
+Wyklucza integrację z zewnętrznymi systemami płatności (np. BLIK, Stripe, PayPal) w wersji MVP.
+
+
+Wymusza projektowanie procesu rezerwacji bez transakcji finansowych, opierając się wyłącznie na zarządzaniu terminami.
+
+
+Pozwala uprościć architekturę systemu i skupić się na stabilności oraz użyteczności kluczowych funkcji.
+
+
+
+Ograniczenie prawne
+Ograniczenie: System musi być zgodny z Rozporządzeniem o Ochronie Danych Osobowych (RODO), a dane osobowe użytkowników (klientów i salonów) muszą być przetwarzane zgodnie z obowiązującymi przepisami prawa UE.
+
+
+Źródło: Prawo Unii Europejskiej (RODO).
+
+
+Wpływ na architekturę:
+
+
+Wymusza implementację mechanizmów realizacji praw użytkownika, takich jak prawo do usunięcia danych oraz prawo do ich eksportu.
+
+
+Narzuca konieczność ograniczenia dostępu do danych osobowych wyłącznie do uprawnionych ról (np. administrator).
+
+
+Wymaga logowania i audytowania operacji na danych wrażliwych oraz odpowiedniego zabezpieczenia bazy danych i komunikacji (np. szyfrowanie).
+
+
+Ograniczenie organizacyjne
+Ograniczenie: Projekt realizowany jest przez niewielki zespół studencki, pracujący w niepełnym wymiarze czasu.
+
+
+Źródło: Charakter projektu akademickiego.
+
+
+Wpływ na architekturę:
+
+
+Wymusza prostą i czytelną architekturę systemu, łatwą do zrozumienia i utrzymania.
+
+
+Ogranicza liczbę zaawansowanych komponentów infrastrukturalnych w wersji MVP.
+
+
+Skłania do stosowania sprawdzonych rozwiązań i frameworków zamiast eksperymentalnych technologii.
+
+
