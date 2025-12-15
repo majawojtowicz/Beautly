@@ -31,7 +31,10 @@
    4.3 [Analiza kompromisów architektonicznych](#43-analiza-kompromisów-architektonicznych)  
 5. [Odkrywanie i analiza wymagań (Analiza porównawcza)](#5-odkrywanie-i-analiza-wymagań-analiza-porównawcza)  
 6. [Dodatki](#6-dodatki)  
-   6.1 [Persony użytkowników](#61-persony-użytkowników)  
+   6.1 [Dodatek A: Modele Analityczne – Diagram Przypadków Użycia](#61-dodatek-a-modele-analityczne--diagram-przypadków-użycia)  
+   6.2 [Dodatek B: Persony Użytkowników](#62-dodatek-b-persony-użytkowników)  
+   6.3 [Dodatek C: Kwestie do Rozwiązania (Open Issues)](#63-dodatek-c-kwestie-do-rozwiązania-open-issues)
+
 
 ---
 
@@ -496,6 +499,35 @@ Jako **przedstawiciel salonu**, chcę zarządzać grafikiem i rezerwacjami, abym
 - wybór użyteczności, niezawodności i wydajności jako kluczowych NFR,  
 - wdrożenie SCD jako wyróżnika (MVP Lite),  
 - ograniczenie MVP do funkcji o najwyższej wartości (rezerwacje + panel salonu).
+
+---
+
+## 6. Dodatki
+
+### 6.1 Dodatek A: Modele Analityczne – Diagram Przypadków Użycia
+Dodatek A zawiera diagram przypadków użycia, prezentujący interakcje pomiędzy aktorami systemu
+(Klient, Salon, Administrator) a głównymi grupami funkcjonalności systemu Beautly.
+
+> Szczegółowy diagram dostępny jest jako osobny artefakt w repozytorium projektu.
+
+---
+
+### 6.2 Dodatek B: Persony Użytkowników
+Dodatek B przedstawia zestaw fikcyjnych, lecz realistycznych person użytkowników,
+reprezentujących kluczowe role systemu. Persony wspierają walidację wymagań
+funkcjonalnych i jakościowych.
+
+> Pełny opis person znajduje się w osobnym dokumencie w repozytorium.
+
+---
+
+### 6.3 Dodatek C: Kwestie do Rozwiązania (Open Issues)
+Dodatek C zawiera listę otwartych kwestii decyzyjnych oraz niejednoznaczności,
+które zostały zidentyfikowane w trakcie analizy wymagań i wymagają dalszych ustaleń
+w kolejnych iteracjach projektu.
+
+> Kwestie te nie blokują realizacji MVP, lecz mają wpływ na rozwój systemu
+oraz decyzje architektoniczne.
 
 ---
 
