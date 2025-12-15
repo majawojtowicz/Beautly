@@ -1,1153 +1,503 @@
 # SRS – Beautly (Specyfikacja Wymagań Oprogramowania)
-Produkt: Beautly – inteligentna platforma rezerwacji usług beauty i wellness z modulem Self Care Day
-Wersja produktu (docelowa dla SRS): MVP 1.0
-Wersja dokumentu: 1.0
-Autor: Maja Wojtowicz
 
-1. Wstęp
-1.1 Cel
-Celem dokumentu jest zdefiniowanie jednoznacznych wymagań dla systemu Beautly (MVP 1.0), aby umożliwić:
-planowanie prac projektowych i implementacji,
-
-
-przygotowanie testów (akceptacyjnych / systemowych),
-
-
-wspólne rozumienie zakresu między klientem a zespołem.
-
-
-Beautly to platforma rezerwacji usług beauty/wellness z modułem Self-Care Day, który układa pełny dzień zabiegów na podstawie preferencji i dostępności terminów .
-
-1.2 Wizja, zakres i cele produktu
-Wizja:
-Beautly łączy wygodę technologii z ideą dbania o siebie - pozwala planować wizyty w wielu salonach i zamienia self-care w łatwy nawyk .
-Zakres:
-konto użytkownika (rejestracja/logowanie, profil),
-
-
-przegląd salonów i usług + filtry (kategoria, cena, lokalizacja),
-
-
-rezerwacje i zarządzanie terminami dla klientów i salonów,
-
-
-panel salonu: usługi, grafik, rezerwacje, dostępność,
-
-
-Self-Care Day: automatyczne układanie planu zabiegów na jeden dzień z różnych salonów, z dopasowaniem slotów czasowych ,
-
-
-opinie, ulubione, podstawowe rekomendacje
-.
-
-
-Cele biznesowe + KPI :
-KPI-1: min. 100 aktywnych użytkowników w ciągu 2 miesięcy od uruchomienia
-
-
-KPI-2 : min. 40% nowych użytkowników wróci w ciągu 30 dni
-
-
-KPI-3: rejestracja trwa max 30 sekund i max 3 kroki
-
-
-Poza zakresem :
-płatności online i rozliczenia (np. BLIK, Apple Pay) – później,
-
-
-czat klient–salon,
-
-
-wideokonsultacje,
-
-
-program lojalnościowy i subskrypcje,
-
-
-dynamiczne ceny i promocje w czasie rzeczywistym.
-
-
-1.3 Definicje, akronimy i skróty
-SRS – Software Requirements Specification
-
-
-MVP – Minimum Viable Product
-
-
-Self-Care Day (SCD) – moduł układający cały dzień zabiegów na podstawie preferencji i dostępności
-
-
-Slot – przedział czasowy dostępny do rezerwacji
-
-
-Usługodawca / Salon – podmiot oferujący usługi beauty/wellness
-
-
-Klient – użytkownik rezerwujący usługi
-
-
-1.4 Przegląd dokumentu
-Rozdział 2 opisuje system ogólnie (funkcje, role, ograniczenia, założenia). Rozdział 3 zawiera wymagania funkcjonalne w formacie user story + Given/When/Then. Rozdział 4 opisuje wymagania jakościowe (mierzalne) oraz kompromisy. Rozdział 5 – analiza porównawcza rynku. Dodatki: diagram przypadków użycia, persony, lista otwartych kwestii.
-
-2. Opis ogólny
-2.1 Główne funkcje produktu
-Konta i profile (Klient, Salon, Administrator)
-
-
-Katalog salonów i usług (wyszukiwanie, filtry)
-
-
-Rezerwacje i kalendarz (dla klientów + salonów)
-
-
-Self-Care Day (planowanie pakietu zabiegów z różnych salonów)
-
-
-Opinie, ulubione, rekomendacje
-
-
-Panel salonu (usługi, grafik, rezerwacje)
-
-
-2.2 Klasy użytkowników
-A) Klient (osoba rezerwująca)
-cele: szybka rezerwacja, wygodne planowanie dnia, minimalna liczba kroków, brak „ręcznego dopasowywania” terminów
-
-
-B) Salon / usługodawca
-cele: zarządzanie grafikiem, usługami i rezerwacjami, minimalizacja pustych okienek, porządek w kalendarzu
-C) Administrator / Moderator
-cele: utrzymanie jakości i bezpieczeństwa platformy, moderacja treści (opinie, salony), obsługa zgłoszeń nadużyć oraz realizacja obowiązków RODO (eksport i usuwanie danych), zapewnienie zgodności działania systemu z regulaminem i przepisami prawa.
-
-2.3 Ograniczenia projektowe
-Ograniczenie technologiczne
-Ograniczenie: System Beautly musi być zrealizowany jako aplikacja webowa z backendem w Python (Django) oraz frontendem w React / React Native.
-
-
-Źródło: Wcześniejsze decyzje projektowe zespołu oraz kompetencje technologiczne członków zespołu.
-
-
-Wpływ na architekturę:
-
-
-Wymusza projektowanie architektury zgodnej z frameworkiem Django (np. MVC/MVT) oraz REST API jako warstwy komunikacyjnej.
-
-
-Narzuca konieczność zaprojektowania czytelnego podziału odpowiedzialności pomiędzy frontendem a backendem oraz integracji z aplikacją mobilną.
-
-
-Ograniczenie biznesowe
-Ograniczenie: Zakres funkcjonalny wersji MVP musi być ograniczony do kluczowych funkcji rezerwacji oraz modułu Self-Care Day, bez obsługi płatności online.
-
-
-Źródło: Ograniczony czas realizacji projektu oraz potrzeba szybkiej walidacji pomysłu produktowego.
-
-
-Wpływ na architekturę:
-
-
-Wyklucza integrację z zewnętrznymi systemami płatności (np. BLIK, Stripe, PayPal) w wersji MVP.
-
-
-Wymusza projektowanie procesu rezerwacji bez transakcji finansowych, opierając się wyłącznie na zarządzaniu terminami.
-
-
-Pozwala uprościć architekturę systemu i skupić się na stabilności oraz użyteczności kluczowych funkcji.
-
-
-
-Ograniczenie prawne
-Ograniczenie: System musi być zgodny z Rozporządzeniem o Ochronie Danych Osobowych (RODO), a dane osobowe użytkowników (klientów i salonów) muszą być przetwarzane zgodnie z obowiązującymi przepisami prawa UE.
-
-
-Źródło: Prawo Unii Europejskiej (RODO).
-
-
-Wpływ na architekturę:
-
-
-Wymusza implementację mechanizmów realizacji praw użytkownika, takich jak prawo do usunięcia danych oraz prawo do ich eksportu.
-
-
-Narzuca konieczność ograniczenia dostępu do danych osobowych wyłącznie do uprawnionych ról (np. administrator).
-
-
-Wymaga logowania i audytowania operacji na danych wrażliwych oraz odpowiedniego zabezpieczenia bazy danych i komunikacji (np. szyfrowanie).
-
-
-Ograniczenie organizacyjne
-Ograniczenie: Projekt realizowany jest przez niewielki zespół studencki, pracujący w niepełnym wymiarze czasu.
-
-
-Źródło: Charakter projektu akademickiego.
-
-
-Wpływ na architekturę:
-
-
-Wymusza prostą i czytelną architekturę systemu, łatwą do zrozumienia i utrzymania.
-
-
-Ogranicza liczbę zaawansowanych komponentów infrastrukturalnych w wersji MVP.
-
-
-Skłania do stosowania sprawdzonych rozwiązań i frameworków zamiast eksperymentalnych technologii.
-
-2.4 Założenia projektowe
-Założenie techniczne
-Założenie: Zakładamy, że algorytm dopasowywania terminów w module Self-Care Day będzie w stanie wygenerować poprawny plan dnia dla użytkownika w czasie krótszym niż 5 sekund przy typowym obciążeniu systemu.
-
-
-Ryzyko: Jeśli algorytm okaże się zbyt wolny lub nieefektywny, użytkownicy będą rezygnować z korzystania z funkcji Self-Care Day, co bezpośrednio wpłynie na kluczowy wyróżnik produktu i obniży retencję użytkowników.
-
-
-Plan walidacji:
-
-
-Co: Testy wydajności modułu Self-Care Day.
-
-
-Jak: Uruchomienie algorytmu na zestawie danych testowych (wiele salonów, usług i slotów czasowych) oraz pomiar czasu generowania planu.
-
-
-Kiedy: W drugim sprincie, przed pełną integracją modułu Self-Care Day z interfejsem użytkownika.
-
-
-Kto: Backend developer.
-Założenie dotyczące użytkownika lub biznesu
-Założenie: Zakładamy, że użytkownicy końcowi będą skłonni zaplanować kompletny Self-Care Day w czasie nie dłuższym niż 2 minuty i przy użyciu maksymalnie kilku prostych kroków.
-
-
-Ryzyko: Jeśli proces planowania okaże się zbyt złożony lub czasochłonny, użytkownicy będą porzucać funkcję Self-Care Day, co spowoduje niskie wykorzystanie kluczowej funkcjonalności i obniżenie wskaźników retencji.
-
-
-Plan walidacji:
-
-
-Co: Testy użyteczności procesu planowania Self-Care Day.
-
-
-Jak: Przygotowanie klikalnego prototypu (np. w Figma) i przeprowadzenie testów z udziałem 5–7 użytkowników, mierząc czas wykonania zadania i liczbę błędów.
-
-
-Kiedy: Przed rozpoczęciem implementacji finalnego interfejsu użytkownika dla modułu Self-Care Day.
-
-
-Kto: Product Owner lub UX Designer.
-
-
-
-Założenie organizacyjne
-Założenie: Zakładamy, że zespół projektowy będzie w stanie regularnie dostarczać działające przyrosty funkcjonalności w iteracjach sprintowych trwających 2–3 tygodnie.
-
-
-Ryzyko: Jeśli tempo pracy zespołu okaże się niestabilne, część zaplanowanych funkcji MVP może nie zostać dostarczona na czas, co ograniczy możliwość pełnej walidacji produktu.
-
-
-Plan walidacji:
-
-
-Co: Monitorowanie realizacji sprintów i wskaźnika ukończonych zadań.
-
-
-Jak: Analiza tablicy zadań (np. Trello/Jira) oraz retrospektywy sprintów.
-
-
-Kiedy: Po zakończeniu każdego sprintu.
-
-
-Kto: Scrum Master lub lider zespołu.
-
-
-Tytuł: Rejestracja konta użytkownika
-Opis:
- Umożliwia nowym użytkownikom utworzenie konta w systemie Beautly.
-
-
-Historyjka Użytkownika:
-
-
-Jako nowy użytkownik,
-
-
-chcę móc zarejestrować konto w systemie,
-
-
-abym mógł korzystać z funkcji rezerwacji usług i planowania Self-Care Day.
-
-
-Cel Biznesowy:
- Obniżenie bariery wejścia do systemu oraz realizacja celu szybkiego onboardingu użytkowników.
-
-
-Warunki Wstępne:
- Użytkownik nie posiada jeszcze konta w systemie Beautly.
-
-
-Warunki Końcowe:
- Konto użytkownika zostaje utworzone i użytkownik jest zalogowany w systemie.
-
-
-Kryteria Akceptacji:
-
-
-
-WF-AUTH-01: Pomyślna rejestracja użytkownika (Scenariusz Główny)
-
-
-Opis: Użytkownik poprawnie zakłada konto.
-
-
-Kryteria Akceptacji:
-
-
-Given: Nie posiadam konta w systemie Beautly.
-
-
-When: Podaję wymagane dane rejestracyjne (np. adres e-mail oraz hasło) i zatwierdzam formularz.
-
-
-Then: Konto zostaje utworzone w systemie.
-
-
-And: Zostaję automatycznie zalogowany do aplikacji.
-
-
-
-WF-AUTH-02: Rejestracja z użyciem istniejącego adresu e-mail (Scenariusz Alternatywny)
-
-
-Opis: System blokuje próbę rejestracji na istniejący adres e-mail.
-
-
-Kryteria Akceptacji:
-
-
-Given: Podaję adres e-mail, który jest już przypisany do innego konta.
-
-
-When: Próbuję zakończyć proces rejestracji.
-
-
-Then: System wyświetla komunikat o istniejącym koncie.
-
-
-And: System proponuje przejście do logowania lub resetu hasła.
-
-
-
-WF-AUTH-03: Niepoprawne dane rejestracyjne (Scenariusz Wyjątkowy)
-
-
-Opis: System waliduje poprawność danych wejściowych.
-
-
-Kryteria Akceptacji:
-
-
-Given: Wprowadzam niepoprawne lub niekompletne dane rejestracyjne.
-
-
-When: Próbuję zatwierdzić formularz.
-
-
-Then: System wyświetla komunikat walidacyjny.
-
-
-And: Konto nie zostaje utworzone.
-
-
-
-Tytuł: Logowanie użytkownika
-Opis:
- Umożliwia zarejestrowanym użytkownikom dostęp do systemu Beautly.
-
-
-Historyjka Użytkownika:
-
-
-Jako zarejestrowany użytkownik,
-
-
-chcę móc zalogować się do systemu,
-
-
-abym miał dostęp do swoich rezerwacji i funkcji personalizowanych.
-
-
-Cel Biznesowy:
- Zapewnienie bezpiecznego dostępu do konta użytkownika oraz utrzymanie ciągłości korzystania z systemu.
-
-
-Warunki Wstępne:
- Użytkownik posiada aktywne konto w systemie Beautly.
-
-
-Warunki Końcowe:
- Użytkownik zostaje poprawnie zalogowany do systemu.
-
-
-Kryteria Akceptacji:
-
-
-
-WF-LOGIN-01: Pomyślne logowanie użytkownika (Scenariusz Główny)
-
-
-Opis: Użytkownik loguje się przy użyciu poprawnych danych.
-
-
-Kryteria Akceptacji:
-
-
-Given: Posiadam aktywne konto w systemie Beautly.
-
-
-When: Podaję poprawny adres e-mail i hasło.
-
-
-Then: Zostaję zalogowany do systemu.
-
-
-And: Uzyskuję dostęp do funkcji wymagających autoryzacji.
-
-
-
-WF-LOGIN-02: Logowanie z niepoprawnym hasłem (Scenariusz Alternatywny)
-
-
-Opis: System odrzuca niepoprawne dane logowania.
-
-
-Kryteria Akceptacji:
-
-
-Given: Posiadam konto w systemie Beautly.
-
-
-When: Podaję niepoprawne hasło.
-
-
-Then: System wyświetla komunikat o błędnych danych logowania.
-
-
-And: Użytkownik pozostaje niezalogowany.
-
-
-
-WF-LOGIN-03: Próba dostępu do funkcji bez logowania (Scenariusz Wyjątkowy)
-
-
-Opis: System wymusza autoryzację dla funkcji wymagających konta.
-
-
-Kryteria Akceptacji:
-
-
-Given: Nie jestem zalogowany w systemie.
-
-
-When: Próbuję uzyskać dostęp do funkcji wymagającej konta (np. rezerwacji).
-
-
-Then: System przekierowuje mnie do ekranu logowania lub rejestracji.
-
-
-Tytuł: Rezerwacja usługi beauty/wellness
-Opis:
- Umożliwia klientom rezerwację wybranej usługi w salonie na konkretny termin.
-
-
-Historyjka Użytkownika:
-
-
-Jako klient,
-
-
-chcę móc zarezerwować wybraną usługę w salonie,
-
-
-abym miał potwierdzony termin wizyty bez konieczności kontaktu telefonicznego.
-
-
-Cel Biznesowy:
- Uproszczenie procesu umawiania wizyt oraz zwiększenie liczby rezerwacji realizowanych przez platformę Beautly.
-
-
-Warunki Wstępne:
- Użytkownik jest zalogowany w systemie jako klient.
-
-
-Warunki Końcowe:
- Rezerwacja zostaje zapisana w systemie i jest widoczna zarówno dla klienta, jak i dla salonu.
-
-
-Kryteria Akceptacji:
-
-
-
-WF-REZ-01: Pomyślna rezerwacja usługi (Scenariusz Główny)
-
-
-Opis: Klient rezerwuje usługę w dostępnym terminie.
-
-
-Kryteria Akceptacji:
-
-
-Given: Jestem zalogowanym klientem i przeglądam ofertę salonu.
-
-
-And: Wybrana usługa posiada dostępne wolne sloty czasowe.
-
-
-When: Wybiorę usługę, termin wizyty i kliknę przycisk „Rezerwuj”.
-
-
-Then: Rezerwacja otrzymuje status „Potwierdzona”.
-
-
-And: Termin zostaje oznaczony jako zajęty w grafiku salonu.
-
-
-And: Rezerwacja jest widoczna w sekcji „Moje wizyty”.
-
-
-
-WF-REZ-02: Rezerwacja zajętego terminu (Scenariusz Alternatywny)
-
-
-Opis: System blokuje rezerwację terminu, który został zajęty przez innego użytkownika.
-
-
-Kryteria Akceptacji:
-
-
-Given: Jestem zalogowanym klientem i wybrałem termin wizyty.
-
-
-And: Wybrany slot czasowy został zajęty w trakcie rezerwacji.
-
-
-When: Próbuję potwierdzić rezerwację.
-
-
-Then: System wyświetla komunikat o braku dostępności terminu.
-
-
-And: System prosi o wybór innego dostępnego slotu.
-
-
-And: Rezerwacja nie zostaje zapisana.
-
-
-
-WF-REZ-03: Rezerwacja przez niezalogowanego użytkownika (Scenariusz Wyjątkowy)
-
-
-Opis: System uniemożliwia dokonanie rezerwacji bez zalogowania.
-
-
-Kryteria Akceptacji:
-
-
-Given: Nie jestem zalogowany w systemie.
-
-
-When: Próbuję zarezerwować usługę w wybranym terminie.
-
-
-Then: System przekierowuje mnie do ekranu logowania lub rejestracji.
-
-
-And: Rezerwacja nie zostaje utworzona.
-
-
-
-Tytuł: Planowanie Self-Care Day
-Opis:
- Umożliwia klientom zaplanowanie całego dnia zabiegów beauty/wellness poprzez automatyczne dopasowanie usług i dostępnych terminów.
-
-
-Historyjka Użytkownika:
-
-
-Jako klient,
-
-
-chcę móc zaplanować Self-Care Day obejmujący kilka zabiegów,
-
-
-abym nie musiał ręcznie dopasowywać terminów i lokalizacji.
-
-
-Cel Biznesowy:
- Wyróżnienie platformy Beautly na tle konkurencji oraz zwiększenie zaangażowania i retencji użytkowników.
-
-
-Warunki Wstępne:
- Użytkownik jest zalogowany w systemie jako klient.
-
-
-Warunki Końcowe:
- System generuje plan dnia obejmujący zestaw zabiegów z przypisanymi terminami, gotowy do potwierdzenia.
-
-
-Kryteria Akceptacji:
-
-
-
-WF-SCD-01: Pomyślne wygenerowanie planu dnia (Scenariusz Główny)
-
-
-Opis: Klient otrzymuje kompletny plan Self-Care Day.
-
-
-Kryteria Akceptacji:
-
-
-Given: Jestem zalogowanym klientem.
-
-
-And: Wybrałem co najmniej dwa zabiegi oraz preferowany dzień.
-
-
-When: Kliknę przycisk „Ułóż Self-Care Day”.
-
-
-Then: System generuje plan dnia z kolejnością zabiegów i proponowanymi slotami czasowymi.
-
-
-And: Każdy zabieg posiada przypisany salon i godzinę.
-
-
-
-WF-SCD-02: Brak możliwości ułożenia pełnego planu (Scenariusz Alternatywny)
-
-
-Opis: System informuje o braku możliwości pełnego dopasowania planu.
-
-
-Kryteria Akceptacji:
-
-
-Given: Jestem zalogowanym klientem i wybrałem zestaw zabiegów.
-
-
-And: Dostępne terminy nie pozwalają na ułożenie kompletnego planu.
-
-
-When: Próbuję wygenerować Self-Care Day.
-
-
-Then: System informuje o problemie z dopasowaniem terminów.
-
-
-And: System proponuje alternatywy (inny dzień lub zmniejszenie liczby zabiegów).
-
-
-
-WF-SCD-03: Próba planowania przez niezalogowanego użytkownika (Scenariusz Wyjątkowy)
-
-
-Opis: System wymaga zalogowania przed użyciem funkcji Self-Care Day.
-
-
-Kryteria Akceptacji:
-
-
-Given: Nie jestem zalogowany w systemie.
-
-
-When: Próbuję skorzystać z funkcji Self-Care Day.
-
-
-Then: System przekierowuje mnie do logowania lub rejestracji.
-
-
-And: Plan dnia nie zostaje wygenerowany.
-
-
-Tytuł: Zarządzanie grafikiem i rezerwacjami w Panelu Salonu
-Opis:
- Umożliwia salonowi zarządzanie dostępnością usług, grafikiem pracy oraz rezerwacjami klientów.
-
-
-Historyjka Użytkownika:
-
-
-Jako przedstawiciel salonu,
-
-
-chcę móc zarządzać grafikiem i rezerwacjami,
-
-
-abym miał porządek w terminach i mógł efektywnie obsługiwać klientów.
-
-
-Cel Biznesowy:
- Usprawnienie obsługi rezerwacji po stronie salonu oraz ograniczenie pustych okienek w grafiku.
-
-
-Warunki Wstępne:
- Użytkownik jest zalogowany w systemie jako salon / usługodawca.
-
-
-Warunki Końcowe:
- Grafik i rezerwacje salonu są aktualne i widoczne dla klientów w systemie Beautly.
-
-
-Kryteria Akceptacji:
-
-
-
-WF-SALON-01: Pomyślne ustawienie grafiku dostępności (Scenariusz Główny)
-
-
-Opis: Salon ustawia dostępne dni i godziny pracy.
-
-
-Kryteria Akceptacji:
-
-
-Given: Jestem zalogowanym użytkownikiem z rolą salonu.
-
-
-And: Posiadam zdefiniowane usługi w systemie.
-
-
-When: Ustawiam godziny pracy oraz dostępność terminów w panelu salonu.
-
-
-Then: Grafik zostaje zapisany w systemie.
-
-
-And: Dostępne sloty czasowe są widoczne dla klientów.
-
-
-
-WF-SALON-02: Przegląd rezerwacji klientów (Scenariusz Główny)
-
-
-Opis: Salon przegląda listę nadchodzących rezerwacji.
-
-
-Kryteria Akceptacji:
-
-
-Given: Jestem zalogowanym użytkownikiem z rolą salonu.
-
-
-When: Otwieram sekcję „Rezerwacje” w panelu salonu.
-
-
-Then: Widzę listę wszystkich nadchodzących wizyt wraz z datą, godziną i usługą.
-
-
-And: Rezerwacje są uporządkowane chronologicznie.
-
-
-
-WF-SALON-03: Anulowanie rezerwacji przez salon (Scenariusz Alternatywny)
-
-
-Opis: Salon może anulować rezerwację klienta.
-
-
-Kryteria Akceptacji:
-
-
-Given: Jestem zalogowanym użytkownikiem z rolą salonu.
-
-
-And: Istnieje aktywna rezerwacja klienta.
-
-
-When: Anuluję rezerwację w panelu salonu.
-
-
-Then: Rezerwacja zmienia status na „Anulowana”.
-
-
-And: Klient otrzymuje informację o anulowaniu rezerwacji.
-
-
-
-WF-SALON-04: Konflikt terminów w grafiku (Scenariusz Wyjątkowy)
-
-
-Opis: System blokuje możliwość ustawienia konfliktujących terminów.
-
-
-Kryteria Akceptacji:
-
-
-Given: Jestem zalogowanym użytkownikiem z rolą salonu.
-
-
-When: Próbuję ustawić grafik powodujący nakładanie się terminów.
-
-
-Then: System wyświetla komunikat o konflikcie terminów.
-
-
-And: Zmiany w grafiku nie zostają zapisane.
-
-
-3.1 Priorytetyzacja wymagań dla MVP
-Priorytet = (Korzyść + Kara) / (Koszt + Ryzyko)
-Tabela priorytetyzacji funkcji
-Funkcja (kandydat do MVP)
-Korzyść
-Kara
-Koszt
-Ryzyko
-Priorytet
-Rejestracja konta
-13
-21
-5
-3
-4.25
-Logowanie
-8
-13
-3
-2
-4.20
-Rezerwacja usługi
-21
-21
-8
-8
-2.63
-Self-Care Day (MVP)
-21
-21
-8
-8
-2.63
-Przegląd salonów i filtrowanie
-13
-21
-8
-5
-2.62
-Panel salonu: grafik + rezerwacje
-21
-21
-13
-8
-2.00
-Powiadomienia o rezerwacji (np. e-mail/push)
-13
-13
-8
-5
-2.00
-Ulubione + opinie
-8
-8
-5
-5
-1.60
-Self-Care Day (pełna wersja)
-21
-13
-13
-13
-1.31
-
-Uwaga do definicji SCD:
-Self-Care Day (MVP Lite) = generowanie planu + propozycje slotów (bez zaawansowanych rzeczy typu: czas dojazdu, pełna optymalizacja wielu wariantów, rezerwacje wszystkiego naraz).
-
-
-Self-Care Day (pełna wersja) = rozbudowany algorytm, więcej ograniczeń i wariantów, większe ryzyko techniczne.
-Wybór zakresu MVP na podstawie wyników
-MVP powinno zawierać funkcje o najwyższym priorytecie (najlepszy stosunek wartości do kosztu i ryzyka):
-Rejestracja konta (4.25)
-
-
-Logowanie (4.20)
-
-
-Przegląd salonów i filtrowanie (2.62)
-
-
-Rezerwacja usługi (2.63)
-
-
-Panel salonu: grafik + rezerwacje (2.00)
-
-
-Powiadomienia o rezerwacji (2.00)
-
-
-Self-Care Day (MVP) (2.63) — jako wyróżnik produktu, ale w ograniczonym zakresie
-
-
-Poza MVP (kolejna iteracja):
-Ulubione + opinie (1.60) — wartościowe, ale nieblokujące podstawowego działania platformy
-
-
-Self-Care Day (pełna wersja) (1.31) — wysoka wartość, ale relatywnie najwyższy koszt i ryzyko
-
-
-Krótkie uzasadnienie decyzji
-Bez rejestracji i logowania nie da się realizować kluczowych procesów (rezerwacje, historia wizyt), więc kara za pominięcie jest bardzo wysoka.
-
-
-Rezerwacja + panel salonu (grafik) to rdzeń biznesowy — bez tego produkt nie spełnia podstawowej obietnicy.
-
-
-Self-Care Day jest wyróżnikiem Beautly, ale pełna wersja ma wysoki koszt/ryzyko, dlatego w MVP najlepiej dowieźć wersję MVP, a dopiero potem rozszerzać.
-
-4. Atrybuty jakościowe (NFR)
-.
-4.1 Priorytety atrybutów jakościowych
-Użyteczność (Usability)
- Użyteczność jest kluczowym atrybutem jakościowym systemu Beautly, ponieważ bezpośrednio wpływa na pozyskanie i aktywację użytkowników. Platforma zakłada szybki onboarding, minimalną liczbę kroków podczas rejestracji oraz intuicyjne procesy rezerwacji i planowania Self-Care Day. Niska użyteczność skutkowałaby wysokim współczynnikiem porzuceń oraz niespełnieniem kluczowych wskaźników KPI.
-
-
-Niezawodność (Reliability)
- Beautly obsługuje krytyczne procesy rezerwacyjne, w których błędy (np. podwójne rezerwacje, utrata terminów) prowadzą do utraty zaufania użytkowników i salonów. System musi zapewniać spójność danych oraz poprawne działanie nawet w sytuacjach częściowych awarii.
-
-
-Wydajność (Performance)
- Wydajność jest szczególnie istotna w kontekście wyszukiwania salonów oraz generowania planów w module Self-Care Day. Czas odpowiedzi systemu ma bezpośredni wpływ na komfort użytkownika i jego skłonność do dalszego korzystania z platformy.
-
-
-Bezpieczeństwo (Security)
- System przetwarza dane osobowe oraz informacje o wizytach, co wymaga odpowiednich mechanizmów ochrony przed nieautoryzowanym dostępem i naruszeniami danych. Bezpieczeństwo jest również kluczowe z punktu widzenia zgodności z przepisami prawa, w szczególności RODO.
-
-
-Dostępność (Availability)
- Użytkownicy oczekują możliwości rezerwowania usług o dowolnej porze dnia, niezależnie od godzin pracy salonów. System powinien charakteryzować się wysoką dostępnością, aby uniknąć sytuacji, w których użytkownik nie może skorzystać z kluczowych funkcji.
-
-
-Skalowalność (Scalability)
- Wraz ze wzrostem liczby użytkowników, salonów oraz rezerwacji system musi być w stanie obsługiwać większe obciążenie bez pogorszenia jakości działania. Skalowalność umożliwia stopniowy rozwój platformy bez konieczności jej gruntownej przebudowy.
-
-
-Modyfikowalność (Modifiability)
- Beautly jest projektem rozwijanym iteracyjnie (MVP → kolejne wersje), dlatego architektura systemu powinna umożliwiać łatwe wprowadzanie zmian i dodawanie nowych funkcjonalności, takich jak płatności online czy programy lojalnościowe.
-
-
-
-4.2 Scenariusze jakościowe
-A) Użyteczność (Onboarding)
-Element
-Opis
-Źródło bodźca
-Nowy użytkownik
-Bodziec
-Rozpoczęcie procesu rejestracji konta
-Artefakt
-Moduł rejestracji użytkownika
-Środowisko
-Typowe obciążenie systemu
-Reakcja
-Użytkownik kończy proces rejestracji bez błędów
-Miara reakcji
-Rejestracja trwa ≤ 30 sekund i obejmuje ≤ 3 kroki dla 95% przypadków, a współczynnik porzuceń procesu (dropout) jest mniejszy niż 20%
-
-
-B) Niezawodność (Rezerwacje)
-Element
-Opis
-Źródło bodźca
-Klient
-Bodziec
-Potwierdzenie rezerwacji wybranego slotu czasowego
-Artefakt
-Moduł rezerwacji oraz baza danych
-Środowisko
-Obciążenie systemu wynoszące 500 równoczesnych użytkowników
-Reakcja
-System zapisuje rezerwację w sposób spójny i zapobiega podwójnym rezerwacjom
-Miara reakcji
-0 przypadków podwójnej rezerwacji w skali miesiąca oraz 100% spójności transakcji
-
-
-C) Wydajność (Self-Care Day)
-Element
-Opis
-Źródło bodźca
-Klient
-Bodziec
-Żądanie wygenerowania planu Self-Care Day
-Artefakt
-Moduł Self-Care Day (logika planowania oraz dostępność terminów)
-Środowisko
-Szczytowe obciążenie systemu
-Reakcja
-System generuje plan dnia i zwraca propozycje zabiegów
-Miara reakcji
-Czas generowania planu jest krótszy niż 5,0 sekundy dla 95% żądań w wersji MVP
-
-4.3 Analiza kompromisów architektonicznych 
-A) Scenariusz: Użyteczność (Onboarding)
-Cel: Rejestracja ≤ 30 sekund i ≤ 3 kroki dla 95% przypadków + dropout < 20%.
-Możliwe rozwiązanie architektoniczne:
- Wprowadzenie uproszczonego procesu rejestracji (minimalne dane na start) oraz realizacja „profilu rozszerzonego” dopiero po pierwszym użyciu (progressive profiling). Dodatkowo zastosowanie mechanizmów autouzupełniania i walidacji po stronie klienta (frontend).
-Kompromis:
-Pozytywny:
-
-
-Znacząco poprawiamy użyteczność i skracamy onboarding, co zwiększa liczbę aktywacji kont.
-
-
-Negatywny:
-
-
-Pogarszamy bezpieczeństwo, jeśli uprościmy zasady haseł lub ograniczymy weryfikację (np. brak potwierdzenia e-mail/telefonu na starcie).
-
-
-Zwiększamy złożoność logiki biznesowej, bo dane użytkownika są kompletowane etapami (większe ryzyko „pustych profili”).
-
-
-Może pogorszyć jakość danych, co utrudnia personalizację i analizę zachowań.
-
-
-
-B) Scenariusz: Niezawodność (Rezerwacje)
-Cel: 0 przypadków podwójnej rezerwacji w skali miesiąca + 100% spójności transakcji.
-Możliwe rozwiązanie architektoniczne:
- Zastosowanie transakcyjności po stronie bazy danych (ACID) oraz mechanizmu blokowania slotu podczas rezerwacji (np. transakcje + unikalne ograniczenie na slot, ewentualnie blokady pesymistyczne/optymistyczne). Dodatkowo idempotentne API (ponowne wysłanie tego samego żądania nie tworzy dubla).
-Kompromis:
-Pozytywny:
-
-
-Maksymalizujemy niezawodność rezerwacji i spójność danych, co buduje zaufanie klientów i salonów.
-
-
-Negatywny:
-
-
-Pogarszamy wydajność przy dużym obciążeniu, bo blokady/transakcje zwiększają czas obsługi i mogą tworzyć „wąskie gardła”.
-
-
-Zwiększamy złożoność implementacji (obsługa retry, timeoutów, konfliktów) i tym samym pogarszamy modyfikowalność.
-
-
-Potencjalnie obniżamy skalowalność (przy dużej liczbie operacji rezerwacyjnych wymagających ścisłej spójności).
-
-
-
-C) Scenariusz: Wydajność (Self-Care Day)
-Cel: czas generowania planu Self-Care Day < 5.0 s dla 95% żądań (MVP).
-Możliwe rozwiązanie architektoniczne:
- Wprowadzenie cache’owania wyników częściowych (np. dostępność slotów dla popularnych usług/salonów), indeksów w bazie danych oraz ograniczenie przestrzeni poszukiwań w algorytmie (heurystyki w MVP: max liczba wariantów, max liczba salonów branych pod uwagę). Opcjonalnie asynchroniczne generowanie planu (kolejka zadań), jeśli obliczenia są ciężkie.
-Kompromis:
-Pozytywny:
-
-
-Znacząco poprawiamy wydajność generowania planów i komfort użytkownika przy korzystaniu z kluczowej funkcji wyróżniającej produkt.
-
-
-Negatywny:
-
-
-Pogarszamy modyfikowalność, bo algorytm i cache wprowadzają dodatkową złożoność (np. unieważnianie cache).
-
-
-Zwiększamy koszt operacyjny, jeśli dojdą dodatkowe komponenty (cache, kolejka zadań, worker).
-
-
-Wprowadzamy ryzyko nieaktualnych danych, jeśli cache dostępności nie będzie poprawnie odświeżany.
-
-
-Możemy pogorszyć użyteczność, jeśli zastosujemy asynchroniczne generowanie (użytkownik czeka na wynik lub musi odświeżać).
-
-5. Odkrywanie i analiza wymagań (Analiza porównawcza)
-Krok 1: Identyfikacja konkurencji i wzorców
-Konkurencja bezpośrednia (platformy rezerwacyjne beauty/wellness):
-Booksy – popularna platforma do rezerwacji wizyt w salonach beauty i barberskich.
-
-
-Treatwell – platforma rezerwacji usług beauty i wellness, szczególnie popularna w Europie Zachodniej.
-
-
-Konkurencja pośrednia:
-Google Maps + kontakt telefoniczny – wyszukiwanie salonów i ręczne umawianie wizyt.
-
-
-Media społecznościowe (Instagram/Facebook) – rezerwacje realizowane przez wiadomości prywatne.
-
-
-Strony internetowe salonów z formularzem kontaktowym.
-
-
-Wzorce funkcjonalne:
-Systemy rezerwacyjne oparte o kalendarze i sloty czasowe.
-
-
-Platformy marketplace łączące klientów z usługodawcami.
-
-
-Mechanizmy opinii i ocen budujące zaufanie użytkowników.
-
-
-
-Krok 2: Zdefiniowanie kryteriów oceny
-Do porównania systemów przyjęto następujące kryteria:
-Kryterium
-Opis
-Funkcjonalność
-Zakres dostępnych funkcji (rezerwacje, filtry, panel salonu, planowanie wizyt).
-User Experience (UX)
-Intuicyjność interfejsu, liczba kroków do rezerwacji, czytelność procesu.
-Wyróżniki funkcjonalne
-Funkcje unikalne lub rzadko spotykane na rynku.
-Model biznesowy
-Sposób monetyzacji (abonament, prowizja, freemium).
-Wsparcie dla usługodawców
-Jakość i zakres panelu salonu oraz narzędzi do zarządzania grafikiem.
-
-
-Krok 3: Synteza wyników analizy
-System
-Mocne strony
-Słabe strony
-Wnioski dla Beautly
-Booksy
-Bardzo rozbudowana baza salonów, stabilne rezerwacje, rozpoznawalna marka
-Złożony interfejs, duża liczba kroków, brak planowania wielu wizyt naraz
-Beautly powinno stawiać na prostotę i krótsze ścieżki użytkownika
-Treatwell
-Dobre UX, przejrzyste oferty, silna pozycja w UE
-Ograniczona elastyczność grafiku, brak personalizacji dnia zabiegów
-Inspiracja w zakresie UX, ale możliwość wyróżnienia się funkcją SCD
-Instagram / telefon
-Bezpośredni kontakt z salonem
-Brak automatyzacji, chaos terminów, ryzyko błędów
-Uzasadnia potrzebę niezawodnych rezerwacji i kalendarzy
-Strony salonów
-Kontrola salonu nad ofertą
-Brak porównywania, brak agregacji usług
-Wartość platformy marketplace i filtrów
-
-Wnioski kluczowe:
-Konkurencyjne platformy dobrze rozwiązują pojedyncze rezerwacje, ale nie wspierają planowania całego dnia zabiegów.
-
-
-Istnieje wyraźna luka rynkowa w obszarze kompleksowego planowania Self-Care Day, które jest kluczowym wyróżnikiem Beautly.
-
-
-Zbyt rozbudowane interfejsy konkurencji wskazują, że użyteczność i prostota powinny być jednym z głównych priorytetów jakościowych systemu.
-
-
-Analiza potwierdza zasadność wprowadzenia Self-Care Day w wersji MVP, a następnie jego stopniowego rozwoju w kolejnych iteracjach.
-
-
-
-Wpływ analizy porównawczej na SRS
-Wyniki analizy bezpośrednio wpłynęły na:
-wybór użyteczności, niezawodności i wydajności jako kluczowych atrybutów jakościowych,
-
-
-decyzję o wdrożeniu Self-Care Day jako funkcji wyróżniającej, ale w ograniczonym zakresie w MVP,
-
-
-ograniczenie zakresu MVP do funkcji o najwyższej wartości biznesowej (rezerwacje + panel salonu).
-
+**Produkt:** Beautly – inteligentna platforma rezerwacji usług beauty i wellness z modułem **Self Care Day**  
+**Wersja produktu (docelowa dla SRS):** MVP 1.0  
+**Wersja dokumentu:** 1.0  
+**Autor:** Maja Wojtowicz  
+
+---
+
+## Spis treści
+1. [Wstęp](#1-wstęp)  
+   1.1 [Cel](#11-cel)  
+   1.2 [Wizja, zakres i cele produktu](#12-wizja-zakres-i-cele-produktu)  
+   1.3 [Definicje, akronimy i skróty](#13-definicje-akronimy-i-skróty)  
+   1.4 [Przegląd dokumentu](#14-przegląd-dokumentu)  
+2. [Opis ogólny](#2-opis-ogólny)  
+   2.1 [Główne funkcje produktu](#21-główne-funkcje-produktu)  
+   2.2 [Klasy użytkowników](#22-klasy-użytkowników)  
+   2.3 [Ograniczenia projektowe](#23-ograniczenia-projektowe)  
+   2.4 [Założenia projektowe](#24-założenia-projektowe)  
+3. [Wymagania funkcjonalne (FR)](#3-wymagania-funkcjonalne-fr)  
+   3.1 [Rejestracja konta użytkownika](#31-rejestracja-konta-użytkownika)  
+   3.2 [Logowanie użytkownika](#32-logowanie-użytkownika)  
+   3.3 [Rezerwacja usługi beauty/wellness](#33-rezerwacja-usługi-beautywellness)  
+   3.4 [Planowanie Self-Care Day](#34-planowanie-self-care-day)  
+   3.5 [Panel salonu: grafik i rezerwacje](#35-panel-salonu-grafik-i-rezerwacje)  
+   3.6 [Priorytetyzacja wymagań dla MVP](#36-priorytetyzacja-wymagań-dla-mvp)  
+4. [Atrybuty jakościowe (NFR)](#4-atrybuty-jakościowe-nfr)  
+   4.1 [Priorytety atrybutów jakościowych](#41-priorytety-atrybutów-jakościowych)  
+   4.2 [Scenariusze jakościowe](#42-scenariusze-jakościowe)  
+   4.3 [Analiza kompromisów architektonicznych](#43-analiza-kompromisów-architektonicznych)  
+5. [Odkrywanie i analiza wymagań (Analiza porównawcza)](#5-odkrywanie-i-analiza-wymagań-analiza-porównawcza)  
+6. [Dodatki](#6-dodatki)  
+   6.1 [Persony użytkowników](#61-persony-użytkowników)  
+
+---
+
+## 1. Wstęp
+
+### 1.1 Cel
+Celem dokumentu jest zdefiniowanie jednoznacznych wymagań dla systemu **Beautly (MVP 1.0)**, aby umożliwić:
+- planowanie prac projektowych i implementacji,
+- przygotowanie testów (akceptacyjnych / systemowych),
+- wspólne rozumienie zakresu między klientem a zespołem.
+
+Beautly to platforma rezerwacji usług beauty/wellness z modułem **Self-Care Day**, który układa pełny dzień zabiegów na podstawie preferencji i dostępności terminów.
+
+### 1.2 Wizja, zakres i cele produktu
+
+**Wizja**  
+Beautly łączy wygodę technologii z ideą dbania o siebie — pozwala planować wizyty w wielu salonach i zamienia self-care w łatwy nawyk.
+
+**Zakres (MVP 1.0)**  
+- konto użytkownika (rejestracja/logowanie, profil),
+- przegląd salonów i usług + filtry (kategoria, cena, lokalizacja),
+- rezerwacje i zarządzanie terminami dla klientów i salonów,
+- panel salonu: usługi, grafik, rezerwacje, dostępność,
+- **Self-Care Day**: automatyczne układanie planu zabiegów na jeden dzień z różnych salonów, z dopasowaniem slotów czasowych,
+- opinie, ulubione, podstawowe rekomendacje.
+
+**Cele biznesowe + KPI**
+- **KPI-1:** min. **100 aktywnych użytkowników** w ciągu **2 miesięcy** od uruchomienia.
+- **KPI-2:** min. **40%** nowych użytkowników wróci w ciągu **30 dni**.
+- **KPI-3:** rejestracja trwa max **30 sekund** i max **3 kroki**.
+
+**Poza zakresem (kolejne wersje)**
+- płatności online i rozliczenia (np. BLIK, Apple Pay),
+- czat klient–salon,
+- wideokonsultacje,
+- program lojalnościowy i subskrypcje,
+- dynamiczne ceny i promocje w czasie rzeczywistym.
+
+### 1.3 Definicje, akronimy i skróty
+- **SRS** – Software Requirements Specification  
+- **MVP** – Minimum Viable Product  
+- **Self-Care Day (SCD)** – moduł układający cały dzień zabiegów na podstawie preferencji i dostępności  
+- **Slot** – przedział czasowy dostępny do rezerwacji  
+- **Usługodawca / Salon** – podmiot oferujący usługi beauty/wellness  
+- **Klient** – użytkownik rezerwujący usługi  
+
+### 1.4 Przegląd dokumentu
+- Rozdział 2 opisuje system ogólnie (funkcje, role, ograniczenia, założenia).  
+- Rozdział 3 zawiera wymagania funkcjonalne w formacie *user story* + kryteria akceptacji **Given/When/Then**.  
+- Rozdział 4 opisuje wymagania jakościowe (mierzalne) oraz kompromisy.  
+- Rozdział 5 – analiza porównawcza rynku.  
+- Dodatki: persony użytkowników.
+
+---
+
+## 2. Opis ogólny
+
+### 2.1 Główne funkcje produktu
+- Konta i profile (Klient, Salon, Administrator)
+- Katalog salonów i usług (wyszukiwanie, filtry)
+- Rezerwacje i kalendarz (dla klientów + salonów)
+- Self-Care Day (planowanie pakietu zabiegów z różnych salonów)
+- Opinie, ulubione, rekomendacje
+- Panel salonu (usługi, grafik, rezerwacje)
+
+### 2.2 Klasy użytkowników
+
+**A) Klient (osoba rezerwująca)**  
+- **Cele:** szybka rezerwacja, wygodne planowanie dnia, minimalna liczba kroków, brak ręcznego dopasowywania terminów.
+
+**B) Salon / usługodawca**  
+- **Cele:** zarządzanie grafikiem, usługami i rezerwacjami, minimalizacja pustych okienek, porządek w kalendarzu.
+
+**C) Administrator / Moderator**  
+- **Cele:** utrzymanie jakości i bezpieczeństwa platformy, moderacja treści (opinie, salony), obsługa zgłoszeń nadużyć, realizacja obowiązków RODO (eksport i usuwanie danych), zgodność działania z regulaminem i przepisami prawa.
+
+### 2.3 Ograniczenia projektowe
+
+#### Ograniczenie technologiczne
+- **Ograniczenie:** system musi być aplikacją webową z backendem w **Python (Django)** oraz frontendem w **React / React Native**.  
+- **Źródło:** wcześniejsze decyzje projektowe zespołu i kompetencje technologiczne.  
+- **Wpływ na architekturę:**
+  - architektura zgodna z Django (MVC/MVT) oraz **REST API** jako warstwa komunikacyjna,
+  - czytelny podział odpowiedzialności frontend/backend oraz integracja z aplikacją mobilną.
+
+#### Ograniczenie biznesowe
+- **Ograniczenie:** w MVP zakres ograniczony do rezerwacji oraz SCD, **bez płatności online**.  
+- **Źródło:** ograniczony czas realizacji i potrzeba szybkiej walidacji pomysłu.  
+- **Wpływ na architekturę:**
+  - brak integracji z systemami płatności w MVP,
+  - proces rezerwacji bez transakcji finansowych,
+  - uproszczenie architektury i skupienie na stabilności procesów krytycznych.
+
+#### Ograniczenie prawne
+- **Ograniczenie:** zgodność z **RODO** (UE) – przetwarzanie danych osobowych zgodnie z prawem.  
+- **Źródło:** przepisy UE (RODO).  
+- **Wpływ na architekturę:**
+  - mechanizmy realizacji praw użytkownika (eksport/usunięcie danych),
+  - kontrola dostępu do danych wg ról,
+  - logowanie i audyt operacji na danych wrażliwych + zabezpieczenie bazy i komunikacji (np. szyfrowanie).
+
+#### Ograniczenie organizacyjne
+- **Ograniczenie:** mały zespół studencki, praca w niepełnym wymiarze.  
+- **Źródło:** charakter projektu akademickiego.  
+- **Wpływ na architekturę:**
+  - prosta, czytelna architektura, łatwa w utrzymaniu,
+  - ograniczenie liczby zaawansowanych komponentów infrastrukturalnych w MVP,
+  - preferencja dla sprawdzonych frameworków/rozwiązań.
+
+### 2.4 Założenia projektowe
+
+#### Założenie techniczne
+- **Założenie:** algorytm dopasowywania terminów w SCD generuje plan w czasie **< 5 s** przy typowym obciążeniu.  
+- **Ryzyko:** zbyt wolne działanie obniży użycie kluczowej funkcji i retencję.  
+- **Plan walidacji:**
+  - **Co:** testy wydajności SCD  
+  - **Jak:** uruchomienie na danych testowych (wiele salonów/usług/slotów) i pomiar czasu  
+  - **Kiedy:** sprint 2 (przed pełną integracją UI)  
+  - **Kto:** backend developer
+
+#### Założenie użytkownika / biznesu
+- **Założenie:** użytkownicy ułożą Self-Care Day w czasie **≤ 2 min** i w kilku prostych krokach.  
+- **Ryzyko:** złożoność procesu → porzucenia i niskie wykorzystanie SCD.  
+- **Plan walidacji:**
+  - **Co:** testy użyteczności procesu SCD  
+  - **Jak:** klikalny prototyp (np. Figma) + testy 5–7 osób, pomiar czasu i błędów  
+  - **Kiedy:** przed implementacją finalnego UI SCD  
+  - **Kto:** Product Owner / UX Designer
+
+#### Założenie organizacyjne
+- **Założenie:** zespół dostarcza działające przyrosty w sprintach **2–3 tygodnie**.  
+- **Ryzyko:** niestabilne tempo → niedostarczenie części funkcji MVP.  
+- **Plan walidacji:**
+  - **Co:** monitorowanie realizacji sprintów  
+  - **Jak:** analiza tablicy zadań (Trello/Jira) + retrospektywy  
+  - **Kiedy:** po każdym sprincie  
+  - **Kto:** Scrum Master / lider zespołu
+
+---
+
+## 3. Wymagania funkcjonalne (FR)
+
+
+### 3.1 Rejestracja konta użytkownika
+
+**Opis:** Umożliwia nowym użytkownikom utworzenie konta w systemie Beautly.  
+
+**User story**  
+Jako **nowy użytkownik**, chcę móc **zarejestrować konto**, abym mógł korzystać z rezerwacji usług i planowania Self-Care Day.
+
+**Cel biznesowy:** obniżenie bariery wejścia i szybki onboarding.  
+**Warunki wstępne:** użytkownik nie posiada konta.  
+**Warunki końcowe:** konto utworzone, użytkownik zalogowany.
+
+**Kryteria akceptacji**
+- **WF-AUTH-01 (Scenariusz główny): Pomyślna rejestracja**  
+  - **Given:** nie posiadam konta w Beautly  
+  - **When:** podaję wymagane dane (np. e-mail, hasło) i zatwierdzam formularz  
+  - **Then:** konto zostaje utworzone  
+  - **And:** zostaję automatycznie zalogowany
+
+- **WF-AUTH-02 (Alternatywny): Rejestracja na istniejący e-mail**  
+  - **Given:** podaję e-mail przypisany do innego konta  
+  - **When:** próbuję zakończyć rejestrację  
+  - **Then:** system wyświetla komunikat o istniejącym koncie  
+  - **And:** proponuje logowanie lub reset hasła
+
+- **WF-AUTH-03 (Wyjątkowy): Niepoprawne dane**  
+  - **Given:** wprowadzam niepoprawne lub niekompletne dane  
+  - **When:** zatwierdzam formularz  
+  - **Then:** system wyświetla komunikat walidacyjny  
+  - **And:** konto nie zostaje utworzone
+
+### 3.2 Logowanie użytkownika
+
+**Opis:** Umożliwia zarejestrowanym użytkownikom bezpieczny dostęp do systemu.  
+
+**User story**  
+Jako **zarejestrowany użytkownik**, chcę móc **zalogować się**, abym miał dostęp do rezerwacji i funkcji personalizowanych.
+
+**Cel biznesowy:** bezpieczny dostęp i ciągłość korzystania.  
+**Warunki wstępne:** użytkownik posiada aktywne konto.  
+**Warunki końcowe:** użytkownik zalogowany.
+
+**Kryteria akceptacji**
+- **WF-LOGIN-01 (Główny): Pomyślne logowanie**  
+  - **Given:** posiadam aktywne konto  
+  - **When:** podaję poprawny e-mail i hasło  
+  - **Then:** zostaję zalogowany  
+  - **And:** mam dostęp do funkcji wymagających autoryzacji
+
+- **WF-LOGIN-02 (Alternatywny): Błędne hasło**  
+  - **Given:** posiadam konto  
+  - **When:** podaję niepoprawne hasło  
+  - **Then:** system wyświetla komunikat o błędnych danych  
+  - **And:** pozostaję niezalogowany
+
+- **WF-LOGIN-03 (Wyjątkowy): Dostęp bez logowania**  
+  - **Given:** nie jestem zalogowany  
+  - **When:** próbuję wejść do funkcji wymagającej konta (np. rezerwacji)  
+  - **Then:** system przekierowuje do logowania/rejestracji
+
+### 3.3 Rezerwacja usługi beauty/wellness
+
+**Opis:** Umożliwia klientom rezerwację wybranej usługi na konkretny termin.  
+
+**User story**  
+Jako **klient**, chcę móc **zarezerwować usługę**, abym miał potwierdzony termin bez kontaktu telefonicznego.
+
+**Cel biznesowy:** uproszczenie umawiania wizyt i wzrost rezerwacji z platformy.  
+**Warunki wstępne:** użytkownik jest zalogowany jako klient.  
+**Warunki końcowe:** rezerwacja zapisana i widoczna dla klienta i salonu.
+
+**Kryteria akceptacji**
+- **WF-REZ-01 (Główny): Pomyślna rezerwacja**  
+  - **Given:** jestem zalogowanym klientem i przeglądam ofertę salonu  
+  - **And:** usługa ma wolne sloty  
+  - **When:** wybieram usługę, termin i klikam „Rezerwuj”  
+  - **Then:** rezerwacja ma status „Potwierdzona”  
+  - **And:** termin oznaczony jako zajęty w grafiku salonu  
+  - **And:** rezerwacja widoczna w „Moje wizyty”
+
+- **WF-REZ-02 (Alternatywny): Slot zajęty w trakcie rezerwacji**  
+  - **Given:** wybrałem termin  
+  - **And:** slot został zajęty w trakcie procesu  
+  - **When:** próbuję potwierdzić rezerwację  
+  - **Then:** system informuje o braku dostępności  
+  - **And:** prosi o wybór innego slotu  
+  - **And:** rezerwacja nie zostaje zapisana
+
+- **WF-REZ-03 (Wyjątkowy): Rezerwacja bez logowania**  
+  - **Given:** nie jestem zalogowany  
+  - **When:** próbuję zarezerwować usługę  
+  - **Then:** system przekierowuje do logowania/rejestracji  
+  - **And:** rezerwacja nie zostaje utworzona
+
+### 3.4 Planowanie Self-Care Day
+
+**Opis:** Umożliwia klientom zaplanowanie dnia zabiegów poprzez automatyczne dopasowanie usług i terminów.  
+
+**User story**  
+Jako **klient**, chcę zaplanować **Self-Care Day** obejmujący kilka zabiegów, abym nie musiał ręcznie dopasowywać terminów i lokalizacji.
+
+**Cel biznesowy:** wyróżnik produktu + wzrost zaangażowania i retencji.  
+**Warunki wstępne:** użytkownik zalogowany jako klient.  
+**Warunki końcowe:** system generuje plan dnia do potwierdzenia.
+
+**Kryteria akceptacji**
+- **WF-SCD-01 (Główny): Wygenerowanie planu**  
+  - **Given:** jestem zalogowany  
+  - **And:** wybrałem min. 2 zabiegi i preferowany dzień  
+  - **When:** klikam „Ułóż Self-Care Day”  
+  - **Then:** system generuje plan z kolejnością i slotami  
+  - **And:** każdy zabieg ma przypisany salon i godzinę
+
+- **WF-SCD-02 (Alternatywny): Brak pełnego dopasowania**  
+  - **Given:** wybrałem zestaw zabiegów  
+  - **And:** dostępne terminy nie pozwalają na pełny plan  
+  - **When:** próbuję wygenerować plan  
+  - **Then:** system informuje o problemie dopasowania  
+  - **And:** proponuje alternatywy (inny dzień / mniej zabiegów)
+
+- **WF-SCD-03 (Wyjątkowy): SCD bez logowania**  
+  - **Given:** nie jestem zalogowany  
+  - **When:** próbuję użyć SCD  
+  - **Then:** system przekierowuje do logowania/rejestracji  
+  - **And:** plan nie zostaje wygenerowany
+
+### 3.5 Panel salonu: grafik i rezerwacje
+
+**Opis:** Umożliwia salonowi zarządzanie dostępnością, grafikiem oraz rezerwacjami.  
+
+**User story**  
+Jako **przedstawiciel salonu**, chcę zarządzać grafikiem i rezerwacjami, abym miał porządek w terminach i efektywnie obsługiwał klientów.
+
+**Cel biznesowy:** usprawnienie obsługi po stronie salonu i redukcja pustych okienek.  
+**Warunki wstępne:** użytkownik zalogowany jako salon/usługodawca.  
+**Warunki końcowe:** grafik i rezerwacje aktualne i widoczne dla klientów.
+
+**Kryteria akceptacji**
+- **WF-SALON-01 (Główny): Ustawienie grafiku**  
+  - **Given:** jestem zalogowany jako salon  
+  - **And:** mam zdefiniowane usługi  
+  - **When:** ustawiam godziny pracy i dostępność  
+  - **Then:** grafik zapisuje się w systemie  
+  - **And:** sloty są widoczne dla klientów
+
+- **WF-SALON-02 (Główny): Przegląd rezerwacji**  
+  - **Given:** jestem zalogowany jako salon  
+  - **When:** otwieram „Rezerwacje”  
+  - **Then:** widzę listę nadchodzących wizyt (data, godzina, usługa)  
+  - **And:** lista jest uporządkowana chronologicznie
+
+- **WF-SALON-03 (Alternatywny): Anulowanie rezerwacji przez salon**  
+  - **Given:** jestem zalogowany jako salon  
+  - **And:** istnieje aktywna rezerwacja  
+  - **When:** anuluję rezerwację  
+  - **Then:** status zmienia się na „Anulowana”  
+  - **And:** klient otrzymuje informację o anulowaniu
+
+- **WF-SALON-04 (Wyjątkowy): Konflikt terminów w grafiku**  
+  - **Given:** jestem zalogowany jako salon  
+  - **When:** ustawiam grafik powodujący nakładanie terminów  
+  - **Then:** system zgłasza konflikt  
+  - **And:** zmiany nie są zapisane
+
+### 3.6 Priorytetyzacja wymagań dla MVP
+
+**Wzór priorytetu:**  
+`Priorytet = (Korzyść + Kara) / (Koszt + Ryzyko)`
+
+**Tabela priorytetyzacji funkcji**
+| Funkcja (kandydat do MVP) | Korzyść | Kara | Koszt | Ryzyko | Priorytet |
+|---|---:|---:|---:|---:|---:|
+| Rejestracja konta | 13 | 21 | 5 | 3 | 4.25 |
+| Logowanie | 8 | 13 | 3 | 2 | 4.20 |
+| Rezerwacja usługi | 21 | 21 | 8 | 8 | 2.63 |
+| Self-Care Day (MVP) | 21 | 21 | 8 | 8 | 2.63 |
+| Przegląd salonów i filtrowanie | 13 | 21 | 8 | 5 | 2.62 |
+| Panel salonu: grafik + rezerwacje | 21 | 21 | 13 | 8 | 2.00 |
+| Powiadomienia o rezerwacji (e-mail/push) | 13 | 13 | 8 | 5 | 2.00 |
+| Ulubione + opinie | 8 | 8 | 5 | 5 | 1.60 |
+| Self-Care Day (pełna wersja) | 21 | 13 | 13 | 13 | 1.31 |
+
+**Uwaga do definicji SCD**
+- **Self-Care Day (MVP Lite):** generowanie planu + propozycje slotów (bez: dojazdu, pełnej optymalizacji wielu wariantów, rezerwacji wszystkiego „naraz”).  
+- **Self-Care Day (pełna wersja):** rozbudowany algorytm, więcej ograniczeń i wariantów, wyższe ryzyko techniczne.
+
+**Wybór zakresu MVP (na podstawie priorytetu)**
+- Rejestracja konta
+- Logowanie
+- Przegląd salonów i filtrowanie
+- Rezerwacja usługi
+- Panel salonu: grafik + rezerwacje
+- Powiadomienia o rezerwacji
+- Self-Care Day (MVP) — jako wyróżnik w ograniczonym zakresie
+
+**Poza MVP (kolejna iteracja)**
+- Ulubione + opinie
+- Self-Care Day (pełna wersja)
+
+**Krótkie uzasadnienie**
+- Rejestracja i logowanie są niezbędne dla procesów kluczowych (rezerwacje, historia wizyt).  
+- Rezerwacja + panel salonu to rdzeń biznesowy platformy.  
+- Self-Care Day jest wyróżnikiem, ale pełna wersja ma wysoki koszt/ryzyko — dlatego w MVP dostarczana jest wersja ograniczona.
+
+---
+
+## 4. Atrybuty jakościowe (NFR)
+
+### 4.1 Priorytety atrybutów jakościowych
+- **Użyteczność (Usability):** szybki onboarding, mało kroków, intuicyjny proces rezerwacji i SCD.  
+- **Niezawodność (Reliability):** brak podwójnych rezerwacji, spójność danych, odporność na częściowe awarie.  
+- **Wydajność (Performance):** szybkie wyszukiwanie i generowanie planu SCD.  
+- **Bezpieczeństwo (Security):** ochrona danych osobowych i informacji o wizytach, zgodność z RODO.  
+- **Dostępność (Availability):** możliwość rezerwacji 24/7.  
+- **Skalowalność (Scalability):** obsługa wzrostu liczby użytkowników/salonów/rezerwacji bez spadku jakości.  
+- **Modyfikowalność (Modifiability):** łatwy rozwój (MVP → kolejne wersje: płatności, lojalność itp.).
+
+### 4.2 Scenariusze jakościowe
+
+#### A) Użyteczność (Onboarding)
+| Element | Opis |
+|---|---|
+| Źródło bodźca | Nowy użytkownik |
+| Bodziec | Rozpoczęcie rejestracji |
+| Artefakt | Moduł rejestracji |
+| Środowisko | Typowe obciążenie |
+| Reakcja | Użytkownik kończy rejestrację bez błędów |
+| Miara reakcji | **≤ 30 s**, **≤ 3 kroki** dla **95%** przypadków; dropout **< 20%** |
+
+#### B) Niezawodność (Rezerwacje)
+| Element | Opis |
+|---|---|
+| Źródło bodźca | Klient |
+| Bodziec | Potwierdzenie rezerwacji slotu |
+| Artefakt | Moduł rezerwacji + baza danych |
+| Środowisko | 500 równoczesnych użytkowników |
+| Reakcja | Spójny zapis, brak podwójnych rezerwacji |
+| Miara reakcji | **0** podwójnych rezerwacji / miesiąc; **100%** spójności transakcji |
+
+#### C) Wydajność (Self-Care Day)
+| Element | Opis |
+|---|---|
+| Źródło bodźca | Klient |
+| Bodziec | Żądanie wygenerowania planu SCD |
+| Artefakt | Moduł SCD + dostępność terminów |
+| Środowisko | Szczytowe obciążenie |
+| Reakcja | System generuje plan i propozycje |
+| Miara reakcji | czas generowania **< 5.0 s** dla **95%** żądań (MVP) |
+
+### 4.3 Analiza kompromisów architektonicznych
+
+#### A) Użyteczność (Onboarding)
+- **Cel:** rejestracja ≤ 30 s, ≤ 3 kroki (95%) + dropout < 20%.  
+- **Możliwe rozwiązanie:** uproszczona rejestracja (minimum danych) + uzupełnianie profilu później (*progressive profiling*), autouzupełnianie i walidacja po stronie klienta.  
+- **Kompromis:**
+  - ✅ lepsza użyteczność i większa aktywacja,
+  - ❌ potencjalnie niższe bezpieczeństwo (jeśli uprościmy zasady lub weryfikację),
+  - ❌ większa złożoność logiki (profil uzupełniany etapami) i ryzyko „pustych profili”.
+
+#### B) Niezawodność (Rezerwacje)
+- **Cel:** 0 podwójnych rezerwacji / miesiąc + 100% spójności.  
+- **Możliwe rozwiązanie:** transakcje ACID, blokowanie slotu (unikalne ograniczenia / blokady pesymistyczne-optymistyczne), idempotentne API.  
+- **Kompromis:**
+  - ✅ maksymalna spójność i zaufanie,
+  - ❌ spadek wydajności przy dużym obciążeniu (blokady),
+  - ❌ większa złożoność implementacji (retry/timeout/konflikty) i potencjalnie niższa skalowalność.
+
+#### C) Wydajność (Self-Care Day)
+- **Cel:** generowanie planu < 5.0 s dla 95% żądań.  
+- **Możliwe rozwiązanie:** cache wyników częściowych, indeksy DB, ograniczenie przestrzeni poszukiwań (heurystyki MVP), opcjonalnie asynchroniczne generowanie (kolejka zadań).  
+- **Kompromis:**
+  - ✅ lepsza wydajność i komfort użytkownika,
+  - ❌ większa złożoność (cache/invalidacja), koszt operacyjny (cache/worker),
+  - ❌ ryzyko nieaktualnych danych (zły refresh cache),
+  - ❌ potencjalnie gorsza użyteczność przy podejściu async (czekanie/odświeżanie).
+
+---
+
+## 5. Odkrywanie i analiza wymagań (Analiza porównawcza)
+
+### Krok 1: Identyfikacja konkurencji i wzorców
+**Konkurencja bezpośrednia**
+- Booksy
+- Treatwell
+
+**Konkurencja pośrednia**
+- Google Maps + telefon
+- Instagram/Facebook (DM)
+- Strony salonów z formularzem kontaktowym
+
+**Wzorce funkcjonalne**
+- rezerwacje oparte o kalendarze i sloty,
+- marketplace usług,
+- mechanizmy opinii i ocen budujące zaufanie.
+
+### Krok 2: Kryteria oceny
+| Kryterium | Opis |
+|---|---|
+| Funkcjonalność | zakres (rezerwacje, filtry, panel salonu, planowanie wizyt) |
+| User Experience (UX) | intuicyjność, liczba kroków, czytelność procesu |
+| Wyróżniki funkcjonalne | unikalne / rzadkie funkcje |
+| Model biznesowy | monetyzacja (abonament, prowizja, freemium) |
+| Wsparcie dla usługodawców | jakość panelu salonu i narzędzi grafiku |
+
+### Krok 3: Synteza wyników
+| System | Mocne strony | Słabe strony | Wnioski dla Beautly |
+|---|---|---|---|
+| Booksy | duża baza salonów, stabilne rezerwacje, rozpoznawalna marka | złożony interfejs, dużo kroków, brak planowania wielu wizyt | stawiać na prostotę i krótsze ścieżki |
+| Treatwell | dobre UX, przejrzyste oferty, silna pozycja w UE | ograniczona elastyczność grafiku, brak personalizacji dnia | inspiracja UX + szansa na wyróżnik SCD |
+| Instagram/telefon | bezpośredni kontakt | brak automatyzacji, chaos terminów, ryzyko błędów | uzasadnia potrzebę niezawodnych rezerwacji |
+| Strony salonów | kontrola salonu nad ofertą | brak porównywania i agregacji | wartość marketplace i filtrów |
+
+**Wnioski kluczowe**
+- Konkurencja dobrze rozwiązuje pojedyncze rezerwacje, ale rzadko wspiera planowanie całego dnia zabiegów.  
+- Istnieje luka rynkowa dla kompleksowego planowania **Self-Care Day**.  
+- Użyteczność i prostota powinny być priorytetem (konkurencja bywa zbyt rozbudowana).  
+- Analiza wspiera decyzję: SCD w MVP (w wersji ograniczonej), a następnie stopniowy rozwój.
+
+**Wpływ analizy na SRS**
+- wybór użyteczności, niezawodności i wydajności jako kluczowych NFR,  
+- wdrożenie SCD jako wyróżnika (MVP Lite),  
+- ograniczenie MVP do funkcji o najwyższej wartości (rezerwacje + panel salonu).
+
+---
+
+
+**Koniec dokumentu SRS – Beautly (MVP 1.0)**
