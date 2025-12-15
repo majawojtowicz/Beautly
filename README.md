@@ -1059,3 +1059,95 @@ Wprowadzamy ryzyko nieaktualnych danych, jeśli cache dostępności nie będzie 
 
 Możemy pogorszyć użyteczność, jeśli zastosujemy asynchroniczne generowanie (użytkownik czeka na wynik lub musi odświeżać).
 
+5. Odkrywanie i analiza wymagań (Analiza porównawcza)
+Krok 1: Identyfikacja konkurencji i wzorców
+Konkurencja bezpośrednia (platformy rezerwacyjne beauty/wellness):
+Booksy – popularna platforma do rezerwacji wizyt w salonach beauty i barberskich.
+
+
+Treatwell – platforma rezerwacji usług beauty i wellness, szczególnie popularna w Europie Zachodniej.
+
+
+Konkurencja pośrednia:
+Google Maps + kontakt telefoniczny – wyszukiwanie salonów i ręczne umawianie wizyt.
+
+
+Media społecznościowe (Instagram/Facebook) – rezerwacje realizowane przez wiadomości prywatne.
+
+
+Strony internetowe salonów z formularzem kontaktowym.
+
+
+Wzorce funkcjonalne:
+Systemy rezerwacyjne oparte o kalendarze i sloty czasowe.
+
+
+Platformy marketplace łączące klientów z usługodawcami.
+
+
+Mechanizmy opinii i ocen budujące zaufanie użytkowników.
+
+
+
+Krok 2: Zdefiniowanie kryteriów oceny
+Do porównania systemów przyjęto następujące kryteria:
+Kryterium
+Opis
+Funkcjonalność
+Zakres dostępnych funkcji (rezerwacje, filtry, panel salonu, planowanie wizyt).
+User Experience (UX)
+Intuicyjność interfejsu, liczba kroków do rezerwacji, czytelność procesu.
+Wyróżniki funkcjonalne
+Funkcje unikalne lub rzadko spotykane na rynku.
+Model biznesowy
+Sposób monetyzacji (abonament, prowizja, freemium).
+Wsparcie dla usługodawców
+Jakość i zakres panelu salonu oraz narzędzi do zarządzania grafikiem.
+
+
+Krok 3: Synteza wyników analizy
+System
+Mocne strony
+Słabe strony
+Wnioski dla Beautly
+Booksy
+Bardzo rozbudowana baza salonów, stabilne rezerwacje, rozpoznawalna marka
+Złożony interfejs, duża liczba kroków, brak planowania wielu wizyt naraz
+Beautly powinno stawiać na prostotę i krótsze ścieżki użytkownika
+Treatwell
+Dobre UX, przejrzyste oferty, silna pozycja w UE
+Ograniczona elastyczność grafiku, brak personalizacji dnia zabiegów
+Inspiracja w zakresie UX, ale możliwość wyróżnienia się funkcją SCD
+Instagram / telefon
+Bezpośredni kontakt z salonem
+Brak automatyzacji, chaos terminów, ryzyko błędów
+Uzasadnia potrzebę niezawodnych rezerwacji i kalendarzy
+Strony salonów
+Kontrola salonu nad ofertą
+Brak porównywania, brak agregacji usług
+Wartość platformy marketplace i filtrów
+
+Wnioski kluczowe:
+Konkurencyjne platformy dobrze rozwiązują pojedyncze rezerwacje, ale nie wspierają planowania całego dnia zabiegów.
+
+
+Istnieje wyraźna luka rynkowa w obszarze kompleksowego planowania Self-Care Day, które jest kluczowym wyróżnikiem Beautly.
+
+
+Zbyt rozbudowane interfejsy konkurencji wskazują, że użyteczność i prostota powinny być jednym z głównych priorytetów jakościowych systemu.
+
+
+Analiza potwierdza zasadność wprowadzenia Self-Care Day w wersji MVP, a następnie jego stopniowego rozwoju w kolejnych iteracjach.
+
+
+
+Wpływ analizy porównawczej na SRS
+Wyniki analizy bezpośrednio wpłynęły na:
+wybór użyteczności, niezawodności i wydajności jako kluczowych atrybutów jakościowych,
+
+
+decyzję o wdrożeniu Self-Care Day jako funkcji wyróżniającej, ale w ograniczonym zakresie w MVP,
+
+
+ograniczenie zakresu MVP do funkcji o najwyższej wartości biznesowej (rezerwacje + panel salonu).
+
